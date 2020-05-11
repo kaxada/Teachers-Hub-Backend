@@ -33,8 +33,9 @@ This project addresses the following SDG targets:
 3.  Change in the repository directory `cd teachers-hub-backend`
 4.  Set up a virtual environment by running `python3 -m venv <name_of_the_environment>`
 5.  Install requirements by running `pip install -r requirements.txt`
-6.  Navigate to `http://localhost:8000` in the browser to view the api.
-7.  Alternatively, open [postman](https://www.postman.com/) to test the url endpoints
+6.  Start the flask server by running `python run.py`
+7.  Navigate to `http://localhost:8000` in the browser to view the api.
+8.  Alternatively, open [postman](https://www.postman.com/) to test the url endpoints
 
 ## Authors
 
