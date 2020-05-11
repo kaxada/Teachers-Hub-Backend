@@ -9,4 +9,3 @@
 src.egg-info
 venv/
 .env
-src/db_schema

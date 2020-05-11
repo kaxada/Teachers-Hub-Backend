@@ -6,4 +6,9 @@ Jinja2==2.11.2
 MarkupSafe==1.1.1
 psycopg2-binary==2.8.5
 python-decouple==3.3
+flake8==3.7.9
+Flask-JWT-Extended==3.24.1
+pycodestyle==2.5.0
+pyflakes==2.1.1
+pytest==5.4.1
 Werkzeug==1.0.1
