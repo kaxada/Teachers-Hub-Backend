@@ -7,6 +7,10 @@
 .vscode/
 .pytest_cache
 src.egg-info
+<<<<<<< HEAD
 venv/
 .env
 __pycache__
+=======
+venv/
+>>>>>>> Baackend login module
