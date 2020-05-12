@@ -1,9 +1,6 @@
 language: python
 python:
   - "3.8"
-#create requirements.txt file
-before_install:
-  - pip freeze --local > requirements.txt
 # command to install dependencies
 install:
   - pip install -r requirements.txt
