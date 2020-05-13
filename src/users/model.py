@@ -1,8 +1,8 @@
 class User:
-    """
-    This class describes the attributes of a user
-    """
+
+    """Describes the attributes of a user."""
     def __init__(self, **kwargs):
+        """Initializes the user model."""
         self.email = kwargs.get('email')
         self.firstname = kwargs.get('firstname')
         self.lastname = kwargs.get('lastname')

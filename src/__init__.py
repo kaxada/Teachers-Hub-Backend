@@ -1,9 +1,9 @@
 from flask import Flask, jsonify
 from src.users.view import user
-from decouple import config
 
 app = Flask(__name__)
 app.register_blueprint(user)
+
 
 @app.route('/')
 def index():

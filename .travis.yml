@@ -16,4 +16,3 @@ before_script:
 script:
   # First sample run test on PIP version
   - pytest
-
