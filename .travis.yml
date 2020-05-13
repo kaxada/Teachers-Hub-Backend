@@ -8,6 +8,4 @@ install:
 script:
   # First sample run test on PIP version
   - pytest tests/test_src.py
-notifications:
-  email:
-    - skizza8@gmail.com
+
