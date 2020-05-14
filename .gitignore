@@ -8,9 +8,13 @@
 .pytest_cache
 src.egg-info
 <<<<<<< HEAD
+<<<<<<< HEAD
 venv/
 .env
 __pycache__
 =======
 venv/
 >>>>>>> Baackend login module
+=======
+venv/
+>>>>>>> fixing linting issues
