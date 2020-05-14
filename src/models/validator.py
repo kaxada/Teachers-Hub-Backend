@@ -1,10 +1,11 @@
 import re
 
+
 class ValidateUser:
     ''' Class to validate user attributes '''
 
     def __init__(self, username, password):
-        self.username = username        
+        self.username = username
         self.password = password
 
     def validate_username(self):
@@ -18,10 +19,8 @@ class ValidateUser:
         else:
             return True
 
-
-
     def validate_password(self):
-        ''' Method validates a user's password '''      
+        ''' Method validates a user's password '''
 
         lower_case = re.search(r"[a-z]", self.password)
         upper_case = re.search(r"[A-Z]", self.password)
