@@ -1,6 +1,7 @@
 # Teachers Hub Backend
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8f00e10e684b43ac812feba82c89b2da)](https://app.codacy.com/gh/BuildForSDG/Team-273-Backend?utm_source=github.com&utm_medium=referral&utm_content=BuildForSDG/Team-273-Backend&utm_campaign=Badge_Grade_Settings)
+[![Build Status](https://travis-ci.org/BuildForSDG/Teachers-Hub-Backend.svg?branch=develop)](https://travis-ci.org/BuildForSDG/Teachers-Hub-Backend)
 
 ## About
 
@@ -36,6 +37,10 @@ This project addresses the following SDG targets:
 6.  Start the flask server by running `python run.py`
 7.  Navigate to `http://localhost:8000` in the browser to view the api.
 8.  Alternatively, open [postman](https://www.postman.com/) to test the url endpoints
+
+## Heroku deployment
+
+View the deployed application here [Teachers Hub API](https://teachershub-backend.herokuapp.com/)
 
 ## Authors
 
