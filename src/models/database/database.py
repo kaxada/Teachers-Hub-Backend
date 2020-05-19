@@ -1,6 +1,5 @@
 ''' file connects to the postgresql database'''
 import psycopg2
-import uuid
 
 
 class MyDatabase():
@@ -15,14 +14,9 @@ class MyDatabase():
 
             self.cur.execute(
                 """
-                        CREATE TABLE IF NOT EXISTS courses (
-                            course_id SERIAL PRIMARY KEY,
-                            courseName TEXT NOT NULL,
-                            category_id INTEGER NOT NULL,                        
-                            instructor_id INTEGER NOT NULL,
-                            duration INTEGER NOT NULL
+                        CREATE TABLE IF NOT EXISTS courses (course_id SERIAL PRIMARY KEY,courseName TEXT NOT NULL,category_id INTEGER NOT NULL,instructor_id INTEGER NOT NULL,duration INTEGER NOT NULL
                             );
-                        """
+                """
             )
         except Exception as e:
             print(e)
