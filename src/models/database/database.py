@@ -31,7 +31,6 @@ class MyDatabase():
     def insert_course(self, courseName, category_id, instructor_id, duration):
         '''
         SQL query to add a course to the database
-
         '''
         insert_course_query = """
         INSERT INTO courses(courseName, category_id, instructor_id, duration)\
