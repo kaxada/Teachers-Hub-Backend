@@ -1,11 +1,6 @@
-from flask import Flask, Blueprint, render_template, redirect, request, url_for, session, flash, jsonify, json, make_response
-from functools import wraps
-import uuid
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_jwt_extended import (
-    create_access_token, get_jwt_identity, jwt_required)
+from flask import Blueprint, request, jsonify
 from src.models.database.database import MyDatabase
-from src.models.validator import *
+from src.models.validator import ValidateCourse
 from src.models.models import Course
 
 
