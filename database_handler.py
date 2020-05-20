@@ -13,6 +13,7 @@ class DbConn:
             self.conn = psycopg2.connect(os.getenv('DATABASE_URL'))
         else:
             self.conn = psycopg2.connect(config("DATABASE_URL"))
+        
         self.conn.autocommit = True
         self.cur = self.conn.cursor()
         return self.cur
@@ -26,7 +27,10 @@ class DbConn:
             password VARCHAR(100) NOT NULL,
             firstname VARCHAR(100) NOT NULL,
             lastname VARCHAR(100) NOT NULL,
-            role VARCHAR(100) NOT NULL); ''')
+            role VARCHAR(100) NOT NULL,
+            inserted_at timestamp NOT NULL,
+            status smallint NOT NULL,
+            modified_at timestamp NULL); ''')
 
     def create_organizations_table(self):
         """A function to create the organization table."""
