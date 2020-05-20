@@ -56,16 +56,11 @@ class ValidateUserRegistration:
         upper_case = re.search(r"[A-Z]", self.password)
         numbers = re.search(r"[0-9]", self.password)
 
-        '''initialise controller so that we can query for duplicate usernames and emails'''
         user_controller = UserController()
 
         db_username = user_controller.check_duplicate_username(self.username)
 
         db_email = user_controller.check_duplicate_email(self.email)
-
-        '''
-        Method validates a user's registration details
-        '''
 
         if not self.username:
             return 'username field is blank',False
