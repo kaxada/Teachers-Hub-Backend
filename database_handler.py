@@ -12,7 +12,7 @@ class DbConn:
         elif os.getenv('APP_SETTINGS') == 'production':
             self.conn = psycopg2.connect(os.getenv('DATABASE_URL'))
         else:
-            self.conn = psycopg2.connect(config("DATABASE_URL"))     
+            self.conn = psycopg2.connect(config("DATABASE_URL"))
         self.conn.autocommit = True
         self.cur = self.conn.cursor()
         return self.cur

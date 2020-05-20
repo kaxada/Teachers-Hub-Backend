@@ -4,6 +4,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from flask_jwt_extended import create_access_token
 from datetime import datetime
 
+
 class UserController:
 
     """User controller interfaces with the database."""
@@ -28,17 +29,17 @@ class UserController:
             inserted_at = datetime.now()
 
             sql_command = sql.format(email,
-                                    username,
-                                    hashed_password,
-                                    firstname,
-                                    lastname,
-                                    role,
-                                    status,
-                                    inserted_at)       
+                                     username,
+                                     hashed_password,
+                                     firstname,
+                                     lastname,
+                                     role,
+                                     status,
+                                     inserted_at)
             self.cur.execute(sql_command)
             return jsonify({'message': 'user registered successfully'}), 200
         except Exception as ex:
-                return jsonify({'message': 'Failure to register user. Error is {}'.format(ex)}), 400
+            return jsonify({'message': 'Failure to register user. Error is {}'.format(ex)}), 400
 
     def login_user(self, username, password):
         """Logs in a user
@@ -58,7 +59,7 @@ class UserController:
             return jsonify({'message': 'successfully logged in',
                             'token': access_token
                             }), 200
-    
+
     def check_duplicate_email(self, the_email):
         '''
             checks the email submitted by user during registration to see if it already exists
@@ -71,7 +72,7 @@ class UserController:
             return True
         else:
             return False
-    
+
     def check_duplicate_username(self, the_username):
         '''
             checks the email submitted by user during registration to see if it already exists

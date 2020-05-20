@@ -10,8 +10,6 @@ class ValidateUser:
         self.username = username
         self.password = password
 
-
-
     def validate_username(self):
         '''
         Method validates a user's username
@@ -35,6 +33,7 @@ class ValidateUser:
             return False
         else:
             return True
+
 
 class ValidateUserRegistration:
     ''' Class to validate user attributes '''
@@ -63,46 +62,44 @@ class ValidateUserRegistration:
         db_email = user_controller.check_duplicate_email(self.email)
 
         if not self.username:
-            return 'username field is blank',False
+            return 'username field is blank', False
         elif self.username.isspace():
-            return 'username field contains a space',False
+            return 'username field contains a space', False
         elif not isinstance(self.username, str):
-            return 'username field must be a String',False
+            return 'username field must be a String', False
         elif db_username:
-            return 'username is already in use!',False
+            return 'username is already in use!', False
         elif not self.password:
-            return 'password field is blank',False
+            return 'password field is blank', False
         elif not all((lower_case, upper_case, numbers)):
-            return 'password must contain at least 1 upper case, 1 lower case letter and 1 number',False
+            return 'password must contain at least 1 upper case, 1 lower case letter and 1 number', False
         elif not len(self.password) > 5:
-            return 'password must be longer than 5 characters',False
+            return 'password must be longer than 5 characters', False
         elif self.confirm_password != self.password:
-            return 'The confirm password value is different from the password',False
+            return 'The confirm password value is different from the password', False
         elif not self.firstname:
-            return 'firstname field is blank',False
+            return 'firstname field is blank', False
         elif self.firstname.isspace():
-            return 'firstname must not contain a space',False
+            return 'firstname must not contain a space', False
         elif not isinstance(self.firstname, str):
-            return 'firstname must be a string',False      
+            return 'firstname must be a string', False
         elif not self.lastname:
-            return 'lastname field is blank',False
+            return 'lastname field is blank', False
         elif self.lastname.isspace():
-            return 'lastname must not contain a space',False
+            return 'lastname must not contain a space', False
         elif not isinstance(self.lastname, str):
-            return 'lastname must be a string',False   
+            return 'lastname must be a string', False
         elif not self.role:
-            return 'role field is blank',False
+            return 'role field is blank', False
         elif self.role.isspace():
-            return 'role field contains a space',False
+            return 'role field contains a space', False
         elif not isinstance(self.role, str):
-            return 'role field must be a String',False
+            return 'role field must be a String', False
         elif not self.email:
-            return 'email field is blank',False
+            return 'email field is blank', False
         elif not validate_email(self.email):
-            return 'You have entered an invalid Email',False
+            return 'You have entered an invalid Email', False
         elif db_email:
-            return 'email is already in use!',False
+            return 'email is already in use!', False
         else:
-            return 'All user registration details are okay',True
-    
-    
+            return 'All user registration details are okay', True
