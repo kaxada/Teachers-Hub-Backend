@@ -70,7 +70,6 @@ class ValidateUserRegistration:
             return 'username field must be a String',False
         elif db_username:
             return 'username is already in use!',False
-    
         elif not self.password:
             return 'password field is blank',False
         elif not all((lower_case, upper_case, numbers)):
@@ -79,35 +78,30 @@ class ValidateUserRegistration:
             return 'password must be longer than 5 characters',False
         elif self.confirm_password != self.password:
             return 'The confirm password value is different from the password',False
-
         elif not self.firstname:
             return 'firstname field is blank',False
         elif self.firstname.isspace():
             return 'firstname must not contain a space',False
         elif not isinstance(self.firstname, str):
-            return 'firstname must be a string',False
-        
+            return 'firstname must be a string',False      
         elif not self.lastname:
             return 'lastname field is blank',False
         elif self.lastname.isspace():
             return 'lastname must not contain a space',False
         elif not isinstance(self.lastname, str):
-            return 'lastname must be a string',False
-        
-        if not self.role:
+            return 'lastname must be a string',False   
+        elif not self.role:
             return 'role field is blank',False
         elif self.role.isspace():
             return 'role field contains a space',False
         elif not isinstance(self.role, str):
             return 'role field must be a String',False
-
         elif not self.email:
             return 'email field is blank',False
         elif not validate_email(self.email):
             return 'You have entered an invalid Email',False
         elif db_email:
             return 'email is already in use!',False
-
         else:
             return 'All user registration details are okay',True
     

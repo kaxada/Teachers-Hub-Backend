@@ -34,8 +34,7 @@ class UserController:
                                     lastname,
                                     role,
                                     status,
-                                    inserted_at)
-            
+                                    inserted_at)       
             self.cur.execute(sql_command)
             return jsonify({'message': 'user registered successfully'}), 200
         except Exception as ex:
