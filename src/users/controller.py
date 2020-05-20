@@ -16,7 +16,6 @@ class UserController:
 
     def create_user(self, username, password, email, firstname, lastname, role):
         """Creates a user.
-        
         Arguments:
           data {[email, username, password, firstname, lastname, role ]} -- [Signup details needed]
         """
@@ -24,7 +23,6 @@ class UserController:
             sql = """INSERT INTO users(email, username, password, firstname, lastname, role, status, inserted_at)
                             VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')"""
 
-            """ Encrypt the user password using a hash algorithm before inserting into database """
             hashed_password = generate_password_hash(password)
             status = 0
             inserted_at = datetime.now()

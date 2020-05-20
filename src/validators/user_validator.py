@@ -48,11 +48,6 @@ class ValidateUserRegistration:
         self.confirm_password = confirm_password
         self.role = role
 
-        
-        
-        
-        
-
     def validate_registration_details(self):
         '''
         The regular expressions below search the user password to confirm to see if it contains  upper case, lower case letters and a number
@@ -64,9 +59,6 @@ class ValidateUserRegistration:
         '''initialise controller so that we can query for duplicate usernames and emails'''
         user_controller = UserController()
 
-        '''
-        We check and see if the username and Email submitted by the user already exist in the registration table.
-        '''
         db_username = user_controller.check_duplicate_username(self.username)
 
         db_email = user_controller.check_duplicate_email(self.email)

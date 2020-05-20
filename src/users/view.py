@@ -19,14 +19,10 @@ def register_user():
     role = data['role']
     confirm_password = data['confirm_password']
 
-    '''
-    First we validate the data submitted by the user for registration
-    '''
     validate = ValidateUserRegistration(username,password,confirm_password,email,firstname,lastname,role)
     
     validation_message, registration_data_is_valid = validate.validate_registration_details() 
     
-   
     if registration_data_is_valid:
         return user_controller.create_user(username,password,email,firstname,lastname,role)
     else:
