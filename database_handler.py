@@ -28,6 +28,22 @@ class DbConn:
             lastname VARCHAR(100) NOT NULL,
             role VARCHAR(100) NOT NULL); ''')
 
+    def create_organizations_table(self):
+        """A function to create the organization table."""
+        self.cur.execute('''CREATE TABLE IF NOT EXISTS organizations
+        (OrganizationID  SERIAL PRIMARY KEY  NOT NULL,
+        organization_name VARCHAR(250) NOT NULL UNIQUE
+        ); ''')
+
+    def create_courses_table(self):
+        """A function to create the course table."""
+        self.cur.execute('''CREATE TABLE IF NOT EXISTS courses
+        (CourseID  SERIAL PRIMARY KEY  NOT NULL,
+        course_name VARCHAR(250) NOT NULL UNIQUE,
+        course_duration VARCHAR(100) NOT NULL UNIQUE,
+        Organization_name VARCHAR REFERENCES organizations(Organization_name) \
+             ON DELETE CASCADE); ''')
+
     def close_DB(self):
         self.conn.commit()
         self.conn.close()
