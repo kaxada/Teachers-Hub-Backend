@@ -26,10 +26,7 @@ class DbConn:
             password VARCHAR(100) NOT NULL,
             firstname VARCHAR(100) NOT NULL,
             lastname VARCHAR(100) NOT NULL,
-            role VARCHAR(100) NOT NULL,
-            inserted_at timestamp NOT NULL,
-            status smallint NOT NULL,
-            modified_at timestamp NULL); ''')
+            role VARCHAR(100) NOT NULL); ''')
 
     def create_organizations_table(self):
         """A function to create the organization table."""
@@ -46,6 +43,12 @@ class DbConn:
         course_duration VARCHAR(255) NOT NULL,
         Organization_name VARCHAR REFERENCES organizations(Organization_name) \
              ON DELETE CASCADE); ''')
+
+    def drop_tables(self, table_name):
+        """ Drops the tables that exist in the database"""
+        sql = """ DROP TABLE {} CASCADE; """
+        self.cur.execute(sql.format(table_name))
+        print("Table '{}' successfully dropped".format(table_name))
 
     def close_DB(self):
         self.conn.commit()

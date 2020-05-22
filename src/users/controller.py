@@ -2,7 +2,7 @@ from database_handler import DbConn
 from flask import jsonify
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_jwt_extended import create_access_token
-from datetime import datetime
+from src.validators.user_validator import ValidateUser
 
 
 class UserController:
@@ -15,31 +15,39 @@ class UserController:
         self.cur = conn.create_connection()
         conn.create_users_table()
 
-    def create_user(self, username, password, email, firstname, lastname, role):
+    def create_user(self, data):
         """Creates a user.
         Arguments:
-          data {[email, username, password, firstname, lastname, role ]} -- [Signup details needed]
+          data {[email, username, password, firstname, lastname, role ]} --
+          [Signup details needed]
         """
-        try:
-            sql = """INSERT INTO users(email, username, password, firstname, lastname, role, status, inserted_at)
-                            VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')"""
+        sql = """INSERT INTO users(email, username, password, firstname,
+                                    lastname, role)
+                    VALUES ('{}', '{}', '{}', '{}', '{}', '{}')"""
 
-            hashed_password = generate_password_hash(password)
-            status = 0
-            inserted_at = datetime.now()
+        hashed_password = generate_password_hash(data['password'], 'sha256')
 
-            sql_command = sql.format(email,
-                                     username,
-                                     hashed_password,
-                                     firstname,
-                                     lastname,
-                                     role,
-                                     status,
-                                     inserted_at)
-            self.cur.execute(sql_command)
-            return jsonify({'message': 'user registered successfully'}), 200
-        except Exception as ex:
-            return jsonify({'message': 'Failure to register user. Error is {}'.format(ex)}), 400
+        sql_command = sql.format(data['email'],
+                                 data['username'],
+                                 hashed_password,
+                                 data['firstname'],
+                                 data['lastname'],
+                                 data['role'])
+        self.cur.execute(sql_command)
+
+    def register_user_controller(self, data):
+        validate = ValidateUser(data)
+        is_valid = validate.is_valid()
+
+        if is_valid == "valid":
+            if not self.check_duplicate_email(data['email']):
+                if not self.check_duplicate_username(data['username']):
+                    self.create_user(data)
+                    return jsonify({"message":
+                                    "user registered successfully"}), 201
+                return jsonify({"message": "Username already exists"}), 400
+            return jsonify({"message": "Email already exists"}), 400
+        return jsonify({"message": is_valid}), 400
 
     def login_user(self, username, password):
         """Logs in a user
@@ -62,7 +70,8 @@ class UserController:
 
     def check_duplicate_email(self, the_email):
         '''
-            checks the email submitted by user during registration to see if it already exists
+            checks the email submitted by user
+            during registration to see if it already exists
         '''
 
         sql_email = """SELECT email FROM users WHERE email='{}'"""
@@ -75,7 +84,8 @@ class UserController:
 
     def check_duplicate_username(self, the_username):
         '''
-            checks the email submitted by user during registration to see if it already exists
+            checks the email submitted by user
+            during registration to see if it already exists
         '''
 
         sql_username = """SELECT username FROM users WHERE username='{}'"""

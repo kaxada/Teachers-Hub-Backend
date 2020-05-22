@@ -1,7 +1,6 @@
 from flask import jsonify, Blueprint, request
 from .controller import UserController
-from src.validators.user_validator import ValidateUser, ValidateUserRegistration
-
+from src.validators.user_validator import ValidateUser
 
 user = Blueprint('user', __name__)
 user_controller = UserController()
@@ -11,22 +10,10 @@ user_controller = UserController()
 def register_user():
     """Registers a User."""
     data = request.get_json()
-    username = data['username']
-    password = data['password']
-    email = data['email']
-    firstname = data['firstname']
-    lastname = data['lastname']
-    role = data['role']
-    confirm_password = data['confirm_password']
-
-    validate = ValidateUserRegistration(
-        username, password, confirm_password, email, firstname, lastname, role)
-    validation_message, registration_data_is_valid = validate.validate_registration_details()
-    if registration_data_is_valid:
-        return user_controller.create_user(username, password, email, firstname, lastname, role)
+    if data:
+        return user_controller.register_user_controller(data)
     else:
-        return jsonify({"message": "{}".format(validation_message)}), 400
-
+        return jsonify({"message": "no data added"}), 400
 
 
 @user.route('/api/v1/auth/login', methods=['POST'])
