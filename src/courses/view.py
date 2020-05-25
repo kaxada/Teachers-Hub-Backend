@@ -33,7 +33,7 @@ def add_new_course():
 def delete_course(course_id):
     """
     Function enables admin to delete a course from the database.
-    
+
     """
     try:
         course_id = int(course_id)
