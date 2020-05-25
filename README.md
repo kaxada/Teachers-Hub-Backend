@@ -2,6 +2,7 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8f00e10e684b43ac812feba82c89b2da)](https://app.codacy.com/gh/BuildForSDG/Team-273-Backend?utm_source=github.com&utm_medium=referral&utm_content=BuildForSDG/Team-273-Backend&utm_campaign=Badge_Grade_Settings)
 [![Build Status](https://travis-ci.org/BuildForSDG/Teachers-Hub-Backend.svg?branch=develop)](https://travis-ci.org/BuildForSDG/Teachers-Hub-Backend)
+[![Coverage Status](https://coveralls.io/repos/github/BuildForSDG/Teachers-Hub-Backend/badge.svg)](https://coveralls.io/github/BuildForSDG/Teachers-Hub-Backend)
 
 ## About
 
