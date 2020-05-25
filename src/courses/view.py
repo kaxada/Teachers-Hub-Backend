@@ -60,18 +60,26 @@ def delete_course(course_id):
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> An administrator should be able to delete a course
 =======
 >>>>>>> remove trailing white space
 =======
+=======
+>>>>>>> An administrator should be able to view a single course
 
 
 @course.route('/api/v1/courses/<course_id>', methods=['GET'])
 def view_course(course_id):
     """
+<<<<<<< HEAD
     Function enables user to view a course from the database.
+=======
+    Function enables admin to view a course from the database.
+    
+>>>>>>> An administrator should be able to view a single course
     """
     try:
         course_id = int(course_id)
@@ -91,6 +99,7 @@ def view_course(course_id):
     except ValueError:
         return jsonify({
             'message': 'The course id should be an integer!'
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         }), 400
@@ -125,3 +134,6 @@ def update_course(course_id):
     else:
         return jsonify({"message": "course details not provided"}), 400
 >>>>>>> An admin should be able to update a course
+=======
+        }), 400
+>>>>>>> An administrator should be able to view a single course
