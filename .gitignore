@@ -10,11 +10,17 @@ src.egg-info
 <<<<<<< HEAD
 <<<<<<< HEAD
 venv/
+<<<<<<< HEAD
+=======
 .env
 __pycache__
+<<<<<<< HEAD
 =======
 venv/
 >>>>>>> Baackend login module
 =======
 venv/
 >>>>>>> fixing linting issues
+=======
+>>>>>>> 456390454e6608bdbcd1a46a53db730ee20775d3
+>>>>>>> 52fd59b7e4829c316293dca718cd716a0414e956
