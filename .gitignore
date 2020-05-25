@@ -9,6 +9,7 @@
 src.egg-info
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 .env
 __pycache__
 venv/
@@ -31,3 +32,8 @@ venv/
 venv/
 >>>>>>> fixing linting issues
 >>>>>>> fixing linting issues
+=======
+.env
+__pycache__
+venv/
+>>>>>>> resolve conflicts in requirements file
