@@ -50,4 +50,3 @@ def delete_course(course_id):
         return jsonify({
             'message': 'The course id should be an integer!'
         }), 400
-
