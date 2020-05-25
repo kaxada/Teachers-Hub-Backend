@@ -55,7 +55,6 @@ def delete_course(course_id):
 def view_course(course_id):
     """
     Function enables admin to view a course from the database.
-    
     """
     try:
         course_id = int(course_id)
