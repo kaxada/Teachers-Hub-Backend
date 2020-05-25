@@ -23,6 +23,7 @@ class CourseController:
     def delete_course(self, course_id):
         ''' Deletes a course '''
 <<<<<<< HEAD
+<<<<<<< HEAD
         sql = """ DELETE FROM courses WHERE courseID ='{}'"""
         sql_command = sql.format(course_id)
         self.cur.execute(sql_command)
@@ -38,11 +39,17 @@ class CourseController:
 =======
         sql = """ DELETE FROM courses WHERE id ='{}'""".format(course_id)        
         self.cur.execute(sql)
+=======
+        sql = """ DELETE FROM courses WHERE id ='{}'"""
+        sql_command = sql.format(course_id)        
+        self.cur.execute(sql_command)
+>>>>>>> remove injection
 
     def query_course(self, course_id):
         ''' selects a course from database '''
-        sql = """ SELECT * FROM courses  WHERE id ='{}' """.format(course_id)       
-        self.cur.execute(sql)
+        sql = """ SELECT * FROM courses  WHERE id ='{}' """
+        sql_command = sql.format(course_id)       
+        self.cur.execute(sql_command)
         row = self.cur.fetchone()
         return row
     
