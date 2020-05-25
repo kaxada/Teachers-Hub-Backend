@@ -56,8 +56,38 @@ def delete_course(course_id):
         }), 400
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> An administrator should be able to delete a course
 =======
 >>>>>>> remove trailing white space
+=======
+
+
+@course.route('/api/v1/courses/<course_id>', methods=['GET'])
+def view_course(course_id):
+    """
+    Function enables admin to view a course from the database.
+    
+    """
+    try:
+        course_id = int(course_id)
+        if not course_controller.query_course(course_id):
+            return jsonify({
+                'message': 'Course does not exist in database'
+            }), 400
+        course = course_controller.query_course(course_id)
+        return jsonify({
+            'course': {
+                '_id': course[0],
+                'course_name': course[1],
+                'course_duration': course[2]
+            },
+            'message': 'course fetched!'
+        }), 200
+    except ValueError:
+        return jsonify({
+            'message': 'The course id should be an integer!'
+        }), 400
+>>>>>>> An administrator should be able to view a single course
