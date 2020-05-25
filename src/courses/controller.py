@@ -33,4 +33,3 @@ class CourseController:
         self.cur.execute(sql_command)
         row = self.cur.fetchone()
         return row
-    
