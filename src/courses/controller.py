@@ -22,6 +22,7 @@ class CourseController:
 
     def delete_course(self, course_id):
         ''' Deletes a course '''
+<<<<<<< HEAD
         sql = """ DELETE FROM courses WHERE courseID ='{}'"""
         sql_command = sql.format(course_id)
         self.cur.execute(sql_command)
@@ -34,3 +35,15 @@ class CourseController:
         row = self.cur.fetchone()
         if row:
             return row
+=======
+        sql = """ DELETE FROM courses WHERE id ='{}'""".format(course_id)        
+        self.cur.execute(sql)
+
+    def query_course(self, course_id):
+        ''' selects a course from database '''
+        sql = """ SELECT * FROM courses  WHERE id ='{}' """.format(course_id)       
+        self.cur.execute(sql)
+        row = self.cur.fetchone()
+        return row
+    
+>>>>>>> An administrator should be able to delete a course

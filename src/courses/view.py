@@ -33,7 +33,11 @@ def add_new_course():
 def delete_course(course_id):
     """
     Function enables admin to delete a course from the database.
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> An administrator should be able to delete a course
     """
     try:
         course_id = int(course_id)
@@ -50,3 +54,7 @@ def delete_course(course_id):
         return jsonify({
             'message': 'The course id should be an integer!'
         }), 400
+<<<<<<< HEAD
+=======
+
+>>>>>>> An administrator should be able to delete a course
