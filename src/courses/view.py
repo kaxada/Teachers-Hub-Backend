@@ -78,11 +78,15 @@ def delete_course(course_id):
 def view_course(course_id):
     """
 <<<<<<< HEAD
+<<<<<<< HEAD
     Function enables user to view a course from the database.
 =======
     Function enables admin to view a course from the database.
     
 >>>>>>> An administrator should be able to view a single course
+=======
+    Function enables user to view a course from the database.
+>>>>>>> An admin should be able to update a course
     """
     try:
         course_id = int(course_id)
@@ -106,12 +110,15 @@ def view_course(course_id):
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         }), 400
 >>>>>>> An administrator should be able to view a single course
 =======
         }), 400
 >>>>>>> removing trailing white space
 =======
+=======
+>>>>>>> An admin should be able to update a course
         }), 400
 
 
@@ -136,6 +143,7 @@ def update_course(course_id):
         except ValueError:
             return jsonify({"message": "course id should be an integer"}), 400
     else:
+<<<<<<< HEAD
         return jsonify({"message": "course details not provided"}), 400
 >>>>>>> An admin should be able to update a course
 =======
@@ -144,3 +152,6 @@ def update_course(course_id):
 =======
         }), 400
 >>>>>>> removing trailing white space
+=======
+        return jsonify({"message": "course details not provided"}), 400
+>>>>>>> An admin should be able to update a course
