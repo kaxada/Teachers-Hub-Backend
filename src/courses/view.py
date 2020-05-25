@@ -88,7 +88,12 @@ def update_course(course_id):
     if data:
         validate_course = ValidateCourse(data)
         try:
-            if validate_course.validate_course_name() and \
+            course_id = int(course_id)
+            if not course_controller.query_course(course_id):
+                return jsonify({
+                    'message': 'Course does not exist in database'
+                }), 400
+            elif validate_course.validate_course_name() and \
                validate_course.validate_course_duration():
                 course_controller.update_course(data, course_id)
                 return jsonify({"message": "course updated successfully"}), 200
