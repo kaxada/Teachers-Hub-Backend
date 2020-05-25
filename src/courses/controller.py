@@ -22,14 +22,15 @@ class CourseController:
 
     def delete_course(self, course_id):
         ''' Deletes a course '''
-        sql = """ DELETE FROM courses WHERE id ='{}'"""
+        sql = """ DELETE FROM courses WHERE courseID ='{}'"""
         sql_command = sql.format(course_id)
         self.cur.execute(sql_command)
 
     def query_course(self, course_id):
         ''' selects a course from database '''
-        sql = """ SELECT * FROM courses  WHERE id ='{}' """
+        sql = """ SELECT * FROM courses  WHERE courseID ='{}' """
         sql_command = sql.format(course_id)
         self.cur.execute(sql_command)
         row = self.cur.fetchone()
-        return row
+        if row:
+            return row

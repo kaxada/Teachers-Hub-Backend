@@ -7,6 +7,22 @@ class ValidateUser:
     def __init__(self, data):
         self.data = data
 
+    def validate_login_credentials(self):
+        """Validates login username"""
+        login_fields = ["username", "password"]
+        try:
+            if len(self.data.keys()) != 2:
+                return "Enter only username and password"
+            for field in login_fields:
+                if not self.data[field]:
+                    return field + " cannot be blank"
+                if field not in self.data.keys():
+                    return field + " is missing"
+                if not isinstance(self.data[field], str):
+                    return "Enter string value at {}".format(field)
+        except KeyError:
+            return "Invalid key added"
+
     def validate_name(self):
         """Validate name and role fields"""
         fields = ['username', 'firstname', 'lastname', 'role',
@@ -36,8 +52,8 @@ class ValidateUser:
 
         if not all((lower_case, upper_case, numbers)):
             return "password should be lower, upper and values"
-        if not len(self.data['password']) > 5:
-            return "password should be greater than 5 characters"
+        if not len(self.data['password']) >= 5:
+            return "password should be greater than or equal to 5 characters"
 
     def validate_email(self):
         if 'email' not in self.data.keys():
@@ -47,6 +63,13 @@ class ValidateUser:
         if not email_format:
             return "wrong email format"
 
+    def validate_login(self):
+        """validates login fields"""
+        if isinstance(self.validate_login_credentials(), str):
+            return self.validate_login_credentials()
+        else:
+            return "valid"
+
     def is_valid(self):
         """combines all field validation"""
         if isinstance(self.validate_name(), str):
@@ -55,5 +78,6 @@ class ValidateUser:
             return self.validate_email()
         elif isinstance(self.validate_password(), str):
             return self.validate_password()
+
         else:
             return "valid"
