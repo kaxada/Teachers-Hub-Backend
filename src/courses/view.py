@@ -55,6 +55,9 @@ def delete_course(course_id):
             'message': 'The course id should be an integer!'
         }), 400
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> An administrator should be able to delete a course
+=======
+>>>>>>> remove trailing white space

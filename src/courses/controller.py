@@ -51,6 +51,10 @@ class CourseController:
         sql_command = sql.format(course_id)       
         self.cur.execute(sql_command)
         row = self.cur.fetchone()
+<<<<<<< HEAD
         return row
     
 >>>>>>> An administrator should be able to delete a course
+=======
+        return row
+>>>>>>> remove trailing white space
