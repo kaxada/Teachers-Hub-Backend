@@ -34,10 +34,13 @@ def delete_course(course_id):
     """
     Function enables admin to delete a course from the database.
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
     
 >>>>>>> An administrator should be able to delete a course
+=======
+>>>>>>> removing trailing white space
     """
     try:
         course_id = int(course_id)
@@ -89,5 +92,9 @@ def view_course(course_id):
     except ValueError:
         return jsonify({
             'message': 'The course id should be an integer!'
+<<<<<<< HEAD
         }), 400
 >>>>>>> An administrator should be able to view a single course
+=======
+        }), 400
+>>>>>>> removing trailing white space
