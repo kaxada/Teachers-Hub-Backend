@@ -34,9 +34,13 @@ six==1.14.0
 toml==0.10.1
 wcwidth==0.1.9
 Werkzeug==1.0.1
+<<<<<<< HEAD
 wrapt==1.12.1
 =======
 >>>>>>> update requirements file
+=======
+wrapt==1.12.1s
+>>>>>>> updating requirement file
 attrs==19.3.0
 certifi==2020.4.5.1
 chardet==3.0.4
@@ -91,6 +95,7 @@ six==1.14.0
 urllib3==1.25.9
 wcwidth==0.1.9
 Werkzeug==1.0.1
+<<<<<<< HEAD
 zipp==3.1.0
 DateTime==4.3
 <<<<<<< HEAD
@@ -122,4 +127,10 @@ Werkzeug==1.0.1
 =======
 wrapt==1.12.1
 >>>>>>> fixing linting errors
+<<<<<<< HEAD
 >>>>>>> fixing linting errors
+=======
+=======
+zipp==3.1.0
+>>>>>>> updating requirement file
+>>>>>>> updating requirement file
