@@ -28,7 +28,7 @@ class CourseController:
 
     def query_course(self, course_id):
         ''' selects a course from database '''
-        sql = """ SELECT * FROM courses  WHERE id ='{}' """
+        sql = """ SELECT * FROM courses  WHERE CourseID ='{}' """
         sql_command = sql.format(course_id)
         self.cur.execute(sql_command)
         row = self.cur.fetchone()
@@ -37,7 +37,7 @@ class CourseController:
     def update_course(self, data, course_id):
         """Updates a course."""
         sql = """UPDATE courses SET course_name='{}', course_duration='{}'\
-        WHERE course_id='{}'"""
+        WHERE CourseID='{}'"""
         sql_command = sql.format(data['course_name'],
                                  data['course_duration'], course_id)
         self.cur.execute(sql_command)
