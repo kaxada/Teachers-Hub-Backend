@@ -50,3 +50,30 @@ def delete_course(course_id):
         return jsonify({
             'message': 'The course id should be an integer!'
         }), 400
+
+
+@course.route('/api/v1/courses/<course_id>', methods=['GET'])
+def view_course(course_id):
+    """
+    Function enables admin to view a course from the database.
+    
+    """
+    try:
+        course_id = int(course_id)
+        if not course_controller.query_course(course_id):
+            return jsonify({
+                'message': 'Course does not exist in database'
+            }), 400
+        course = course_controller.query_course(course_id)
+        return jsonify({
+            'course': {
+                '_id': course[0],
+                'course_name': course[1],
+                'course_duration': course[2]
+            },
+            'message': 'course fetched!'
+        }), 200
+    except ValueError:
+        return jsonify({
+            'message': 'The course id should be an integer!'
+        }), 400
