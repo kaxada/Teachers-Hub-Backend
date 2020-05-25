@@ -8,3 +8,8 @@
 .pytest_cache
 src.egg-info
 venv/
+<<<<<<< HEAD
+=======
+.env
+__pycache__
+>>>>>>> 456390454e6608bdbcd1a46a53db730ee20775d3
