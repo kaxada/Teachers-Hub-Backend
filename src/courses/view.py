@@ -64,6 +64,7 @@ def delete_course(course_id):
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> An administrator should be able to delete a course
@@ -72,11 +73,14 @@ def delete_course(course_id):
 =======
 =======
 >>>>>>> An administrator should be able to view a single course
+=======
+>>>>>>> ca2ce73b24da4cd08e4dcfd792d7b2ddf9775c55
 
 
 @course.route('/api/v1/courses/<course_id>', methods=['GET'])
 def view_course(course_id):
     """
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     Function enables user to view a course from the database.
@@ -87,6 +91,9 @@ def view_course(course_id):
 =======
     Function enables user to view a course from the database.
 >>>>>>> An admin should be able to update a course
+=======
+    Function enables user to view a course from the database.
+>>>>>>> ca2ce73b24da4cd08e4dcfd792d7b2ddf9775c55
     """
     try:
         course_id = int(course_id)
@@ -111,6 +118,7 @@ def view_course(course_id):
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         }), 400
 >>>>>>> An administrator should be able to view a single course
 =======
@@ -119,6 +127,8 @@ def view_course(course_id):
 =======
 =======
 >>>>>>> An admin should be able to update a course
+=======
+>>>>>>> ca2ce73b24da4cd08e4dcfd792d7b2ddf9775c55
         }), 400
 
 
@@ -144,6 +154,7 @@ def update_course(course_id):
             return jsonify({"message": "course id should be an integer"}), 400
     else:
 <<<<<<< HEAD
+<<<<<<< HEAD
         return jsonify({"message": "course details not provided"}), 400
 >>>>>>> An admin should be able to update a course
 =======
@@ -155,3 +166,6 @@ def update_course(course_id):
 =======
         return jsonify({"message": "course details not provided"}), 400
 >>>>>>> An admin should be able to update a course
+=======
+        return jsonify({"message": "course details not provided"}), 400
+>>>>>>> ca2ce73b24da4cd08e4dcfd792d7b2ddf9775c55
