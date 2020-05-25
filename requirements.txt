@@ -30,8 +30,7 @@ six==1.14.0
 toml==0.10.1
 wcwidth==0.1.9
 Werkzeug==1.0.1
-wrapt==1.12.1
-=======
+wrapt==1.12.1s
 attrs==19.3.0
 certifi==2020.4.5.1
 chardet==3.0.4
@@ -67,4 +66,3 @@ urllib3==1.25.9
 wcwidth==0.1.9
 Werkzeug==1.0.1
 zipp==3.1.0
->>>>>>> 456390454e6608bdbcd1a46a53db730ee20775d3
