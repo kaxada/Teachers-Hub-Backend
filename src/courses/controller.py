@@ -29,7 +29,7 @@ class CourseController:
     def query_course(self, course_id):
         ''' selects a course from database '''
         sql = """ SELECT * FROM courses  WHERE id ='{}' """
-        sql_command = sql.format(course_id)       
+        sql_command = sql.format(course_id)     
         self.cur.execute(sql_command)
         row = self.cur.fetchone()
         return row
