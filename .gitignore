@@ -7,13 +7,6 @@
 .vscode/
 .pytest_cache
 src.egg-info
-venv/
-<<<<<<< HEAD
-=======
 .env
 __pycache__
-<<<<<<< HEAD
 venv/
-=======
->>>>>>> 456390454e6608bdbcd1a46a53db730ee20775d3
->>>>>>> c58bc758260f7cc7db3a81e67817257d821caf0e
