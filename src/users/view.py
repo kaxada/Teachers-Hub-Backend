@@ -21,15 +21,11 @@ def login():
     """Logs in a user.
     """
     data = request.get_json()
-    username = data['username']
-    password = data['password']
-    validate = ValidateUser(username, password)
+    validate = ValidateUser(data)
 
-    if validate.validate_username() and \
-       validate.validate_password():
-        return user_controller.login_user(username, password)
+    if data:
+        return user_controller.login_user(data)
     else:
         return jsonify({
-            "message":
-            "Enter valid username or password(Lowercase, Uppercase, number)"
+            "message": validate.validate_login()
         }), 400

@@ -49,24 +49,29 @@ class UserController:
             return jsonify({"message": "Email already exists"}), 400
         return jsonify({"message": is_valid}), 400
 
-    def login_user(self, username, password):
+    def login_user(self, data):
         """Logs in a user
 
         Arguments:
           data {[username, password ]} -- [Login credentials needed]
         """
         sql = """SELECT username,password FROM users WHERE username='{}'"""
-        self.cur.execute(sql.format(username))
-        db_user = self.cur.fetchone()
-        if not db_user:
-            return jsonify({'message': 'No user found'}), 404
-        if not check_password_hash(db_user[1], password):
-            return jsonify({'message': 'Invalid password'}), 400
+        validate = ValidateUser(data)
+        is_valid = validate.validate_login()
+        if is_valid == "valid":
+            self.cur.execute(sql.format(data['username']))
+            db_user = self.cur.fetchone()
+            if not db_user:
+                return jsonify({'message': 'No user found'}), 404
+            if not check_password_hash(db_user[1], data['password']):
+                return jsonify({'message': 'Invalid password'}), 400
+            else:
+                access_token = create_access_token(identity=data['username'])
+                return jsonify({'message': 'successfully logged in',
+                                'token': access_token
+                                }), 200
         else:
-            access_token = create_access_token(identity=username)
-            return jsonify({'message': 'successfully logged in',
-                            'token': access_token
-                            }), 200
+            return jsonify({"message": is_valid}), 400
 
     def check_duplicate_email(self, the_email):
         '''
