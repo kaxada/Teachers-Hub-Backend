@@ -7,20 +7,6 @@
 .vscode/
 .pytest_cache
 src.egg-info
-<<<<<<< HEAD
-<<<<<<< HEAD
-venv/
-<<<<<<< HEAD
-=======
 .env
 __pycache__
-<<<<<<< HEAD
-=======
 venv/
->>>>>>> Baackend login module
-=======
-venv/
->>>>>>> fixing linting issues
-=======
->>>>>>> 456390454e6608bdbcd1a46a53db730ee20775d3
->>>>>>> 389b857ce56cfb94929ab98aad50c097b4bb0f39
