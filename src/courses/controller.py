@@ -23,7 +23,7 @@ class CourseController:
     def delete_course(self, course_id):
         ''' Deletes a course '''
         sql = """ DELETE FROM courses WHERE id ='{}'"""
-        sql_command = sql.format(course_id)        
+        sql_command = sql.format(course_id)
         self.cur.execute(sql_command)
 
     def query_course(self, course_id):
