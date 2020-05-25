@@ -21,6 +21,7 @@ This project addresses the following SDG targets:
 | ------- | ----------------------------- | ------------------------- |
 | GET     | api/v1/courses                | Fetches all courses       |
 | GET     | api/v1/courses/&lt;course_id> | Fetches a single course   |
+| POST    | api/v1/courses                | Adds a new course         |
 | PUT     | api/v1/courses/&lt;course_id> | Updates a single course   |
 | DELETE  | api/v1/courses/&lt;course_id> | Deletes a course          |
 | POST    | api/v1/auth/login             | Logs in a user            |
