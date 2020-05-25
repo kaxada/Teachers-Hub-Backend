@@ -41,7 +41,7 @@ class CourseController:
         self.cur.execute(sql)
 =======
         sql = """ DELETE FROM courses WHERE id ='{}'"""
-        sql_command = sql.format(course_id)        
+        sql_command = sql.format(course_id)
         self.cur.execute(sql_command)
 >>>>>>> remove injection
 
