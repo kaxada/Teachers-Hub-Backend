@@ -7,7 +7,7 @@ class TestUser(unittest.TestCase):
     def setUp(self):
         """Sets up the user class."""
         self.user = User(**{'email': 'maria@gmail.com', 'firstname': 'maria',
-                            'role': 'user'})
+                            'role': 'Admin'})
 
     def test_user_model(self):
         """GIVEN a User model.
@@ -18,4 +18,4 @@ class TestUser(unittest.TestCase):
         """
         self.assertEqual(self.user.email, 'maria@gmail.com')
         self.assertEqual(self.user.firstname, 'maria')
-        self.assertEqual(self.user.role, 'user')
+        self.assertEqual(self.user.role, 'Admin')

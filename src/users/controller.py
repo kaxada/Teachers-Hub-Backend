@@ -49,7 +49,7 @@ class UserController:
                 return jsonify({"message": "Username already exists"}), 400
             return jsonify({"message": "Email already exists"}), 400
         return jsonify({"message": is_valid}), 400
-    
+
     def get_role(self, data):
         sql = """SELECT role FROM users WHERE username = '{}'"""
         self.cur.execute(sql.format(data['username']))
