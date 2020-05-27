@@ -3,9 +3,11 @@ from src.users.view import user
 from src.courses.view import course
 from flask_jwt_extended import JWTManager
 from decouple import config
+from flask_cors import CORS
 
 
 app = Flask(__name__)
+cors = CORS(app)
 app.register_blueprint(user)
 app.register_blueprint(course)
 app.config['JWT_SECRET_KEY'] = config("SECRET_KEY")
