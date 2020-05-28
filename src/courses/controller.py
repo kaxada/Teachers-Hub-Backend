@@ -50,7 +50,7 @@ class CourseController:
 
     def query_all_courses(self):
         ''' selects all available courses from the database '''
-        sql = """ SELECT * FROM courses  """   
+        sql = """ SELECT * FROM courses  """
         self.cur.execute(sql)
         rows = self.cur.fetchall()
         return rows
