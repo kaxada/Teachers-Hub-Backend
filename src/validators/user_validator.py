@@ -70,6 +70,12 @@ class ValidateUser:
         else:
             return "valid"
 
+    def validate_user_role(self):
+        if self.data['role'] != 'Admin' and \
+            self.data['role'] != 'Teacher' and \
+            self.data['role'] != 'Institution':
+            return "Role must be either Admin, Teacher, Institution"
+
     def is_valid(self):
         """combines all field validation"""
         if isinstance(self.validate_name(), str):
@@ -78,6 +84,7 @@ class ValidateUser:
             return self.validate_email()
         elif isinstance(self.validate_password(), str):
             return self.validate_password()
-
+        elif isinstance(self.validate_user_role(), str):
+            return self.validate_user_role()
         else:
             return "valid"
