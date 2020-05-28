@@ -105,3 +105,19 @@ def update_course(course_id):
             return jsonify({"message": "course id should be an integer"}), 400
     else:
         return jsonify({"message": "course details not provided"}), 400
+
+
+@course.route('/api/v1/courses', methods=['GET'])
+def view_all_courses():
+    """
+    Function enables user to view all the available courses from the database.
+    """
+    if not course_controller.query_all_courses():
+        return jsonify({
+            'message': 'No available courses in the database'
+        }), 400
+    courses = course_controller.query_all_courses()
+    return jsonify({
+        'courses': courses,
+        'message': 'courses fetched!'
+    }), 200
