@@ -32,7 +32,7 @@ class TestUserSignUp(unittest.TestCase):
         '''
         output = self.signup_user(
             'kizza5', 'Test123', 'test5@test.com', 'kizza', 'samuel',
-            'teacher', 'Test123')
+            'Teacher', 'Test123')
         self.assertIn('user registered successfully',
                       output.data.decode('utf-8'))
 

@@ -2,6 +2,7 @@ from database_handler import DbConn
 from flask import jsonify
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_jwt_extended import create_access_token
+from datetime import timedelta
 from src.validators.user_validator import ValidateUser
 
 
@@ -49,6 +50,13 @@ class UserController:
             return jsonify({"message": "Email already exists"}), 400
         return jsonify({"message": is_valid}), 400
 
+    def get_role(self, data):
+        sql = """SELECT role FROM users WHERE username = '{}'"""
+        self.cur.execute(sql.format(data['username']))
+        role = self.cur.fetchone()
+        if role:
+            return role
+
     def login_user(self, data):
         """Logs in a user
 
@@ -58,6 +66,12 @@ class UserController:
         sql = """SELECT username,password FROM users WHERE username='{}'"""
         validate = ValidateUser(data)
         is_valid = validate.validate_login()
+        role = self.get_role(data)
+        identity = {
+            'username': data['username'],
+            'role': role
+        }
+        expires = timedelta(hours=23)
         if is_valid == "valid":
             self.cur.execute(sql.format(data['username']))
             db_user = self.cur.fetchone()
@@ -66,7 +80,7 @@ class UserController:
             if not check_password_hash(db_user[1], data['password']):
                 return jsonify({'message': 'Invalid password'}), 400
             else:
-                access_token = create_access_token(identity=data['username'])
+                access_token = create_access_token(identity=identity, expires_delta=expires)
                 return jsonify({'message': 'successfully logged in',
                                 'token': access_token
                                 }), 200
