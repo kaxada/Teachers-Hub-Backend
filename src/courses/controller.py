@@ -47,3 +47,10 @@ class CourseController:
         row = self.cur.fetchone()
         if row:
             return row
+
+    def query_all_courses(self):
+        ''' selects all available courses from the database '''
+        sql = """ SELECT * FROM courses  """
+        self.cur.execute(sql)
+        rows = self.cur.fetchall()
+        return rows
