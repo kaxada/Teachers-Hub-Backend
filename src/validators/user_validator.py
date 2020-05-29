@@ -25,10 +25,9 @@ class ValidateUser:
 
     def validate_name(self):
         """Validate name and role fields"""
-        fields = ['username', 'firstname', 'lastname', 'role',
-                  'confirm_password', 'email', 'password']
-        if len(self.data.keys()) != 7:
-            return "Wrong number of fields, should be 7"
+        fields = ['username', 'role', 'confirm_password', 'email', 'password']
+        if len(self.data.keys()) != 5:
+            return "Wrong number of fields, should be 5"
         try:
             for field in fields:
                 if field not in self.data.keys():

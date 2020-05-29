@@ -15,13 +15,10 @@ class TestUserSignUp(unittest.TestCase):
             self.cur = conn.create_connection()
             conn.create_users_table()
 
-    def signup_user(self, username, password, email, firstname, lastname, role,
-                    confirm_password):
+    def signup_user(self, username, password, email, role, confirm_password):
         data = {'username': username,
                 'password': password,
                 'email': email,
-                'firstname': firstname,
-                'lastname': lastname,
                 'role': role,
                 'confirm_password': confirm_password}
         return self.app.post('/api/v1/auth/signup', json=data)
@@ -31,8 +28,7 @@ class TestUserSignUp(unittest.TestCase):
         We then call the user signup API method
         '''
         output = self.signup_user(
-            'kizza5', 'Test123', 'test5@test.com', 'kizza', 'samuel',
-            'Teacher', 'Test123')
+            'kizza5', 'Test123', 'test5@test.com', 'Teacher', 'Test123')
         self.assertIn('user registered successfully',
                       output.data.decode('utf-8'))
 
