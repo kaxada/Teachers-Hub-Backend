@@ -24,8 +24,6 @@ class DbConn:
             email VARCHAR(250) NOT NULL UNIQUE,
             username VARCHAR(100) NOT NULL UNIQUE,
             password VARCHAR(100) NOT NULL,
-            firstname VARCHAR(100) NOT NULL,
-            lastname VARCHAR(100) NOT NULL,
             role VARCHAR(100) NOT NULL); ''')
 
     def create_organizations_table(self):

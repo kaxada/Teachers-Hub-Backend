@@ -19,20 +19,17 @@ class UserController:
     def create_user(self, data):
         """Creates a user.
         Arguments:
-          data {[email, username, password, firstname, lastname, role ]} --
+          data {[email, username, password, role ]} --
           [Signup details needed]
         """
-        sql = """INSERT INTO users(email, username, password, firstname,
-                                    lastname, role)
-                    VALUES ('{}', '{}', '{}', '{}', '{}', '{}')"""
+        sql = """INSERT INTO users(email, username, password, role)
+                    VALUES ('{}', '{}', '{}', '{}')"""
 
         hashed_password = generate_password_hash(data['password'], 'sha256')
 
         sql_command = sql.format(data['email'],
                                  data['username'],
                                  hashed_password,
-                                 data['firstname'],
-                                 data['lastname'],
                                  data['role'])
         self.cur.execute(sql_command)
 
