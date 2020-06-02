@@ -28,7 +28,11 @@ This project addresses the following SDG targets:
 | POST    | api/v1/auth/signup            | Registers a user          |
 | POST    | api/v1/auth/logout            | Logs out a user           |
 | POST    | api/v1/categories             | Creates a course category |
+<<<<<<< HEAD
 | GET     | api/v1/auth/profile           | Fetches a user's profile  |
+=======
+| GET     | api/v1/auth/profile           | Fetches a user's profile details |
+>>>>>>> fea25cc0655f6365dced26c1ac1120214ef4746b
 
 ## Setup
 
