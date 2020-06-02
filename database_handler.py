@@ -39,7 +39,7 @@ class DbConn:
         (CourseID  SERIAL PRIMARY KEY  NOT NULL,
         course_name VARCHAR(250) NOT NULL UNIQUE,
         course_title VARCHAR(255) NOT NULL,
-        course_description VARCHAR(255) NOT NULL,
+        course_description VARCHAR(500) NOT NULL,
         course_duration INTEGER NOT NULL,
         total_enrolled INTEGER,
         Organization_name VARCHAR REFERENCES organizations(Organization_name) \

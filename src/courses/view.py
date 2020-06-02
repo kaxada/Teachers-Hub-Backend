@@ -105,6 +105,8 @@ def update_course(course_id):
                 return jsonify({"message": "enter valid course duration"}), 400
         except ValueError:
             return jsonify({"message": "course id should be an integer"}), 400
+        except Exception:
+            return jsonify({"message": "course exists already"}), 400
     else:
         return jsonify({"message": "course details not provided"}), 400
 

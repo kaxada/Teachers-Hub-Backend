@@ -36,10 +36,10 @@ class CourseController:
 
     def update_course(self, data, course_id):
         """Updates a course."""
-        sql = """UPDATE courses SET course_name='{}', course_duration='{}'\
+        sql = """UPDATE courses SET course_name='{}', course_duration='{}', course_title='{}', course_description='{}'\
         WHERE CourseID='{}'"""
         sql_command = sql.format(data['course_name'],
-                                 data['course_duration'], course_id)
+                                data['course_duration'], data['course_title'], data['course_description'], course_id)
         self.cur.execute(sql_command)
         sql = """ SELECT * FROM courses  WHERE courseID ='{}' """
         sql_command = sql.format(course_id)
