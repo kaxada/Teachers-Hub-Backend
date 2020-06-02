@@ -66,9 +66,11 @@ def view_course(course_id):
         course = course_controller.query_course(course_id)
         return jsonify({
             'course': {
-                '_id': course[0],
+                'course_id': course[0],
                 'course_name': course[1],
-                'course_duration': course[2]
+                'course_title': course[2],
+                'course_description': course[3],
+                'course_duration': course[4]
             },
             'message': 'course fetched!'
         }), 200
@@ -103,6 +105,8 @@ def update_course(course_id):
                 return jsonify({"message": "enter valid course duration"}), 400
         except ValueError:
             return jsonify({"message": "course id should be an integer"}), 400
+        except Exception:
+            return jsonify({"message": "course exists already"}), 400
     else:
         return jsonify({"message": "course details not provided"}), 400
 

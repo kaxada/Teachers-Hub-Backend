@@ -16,12 +16,13 @@ class ValidateCourse:
             [boolean] -- [True if course name is valid else False]
         """
         try:
-            if not isinstance(self.data['course_name'], str) or \
-             self.data['course_name'].isspace() or \
-             self.data['course_name'] == "":
-                return False
-            else:
-                return True
+            fields = ['course_name', 'course_title']
+            for field in fields:
+                if not isinstance(self.data[field], str)  or \
+                self.data[field] == "":
+                    return False
+                else:
+                    return True
         except KeyError:
             return False
 
