@@ -1,7 +1,9 @@
-from flask import jsonify, Blueprint, request
-from .controller import CourseController
-from ..validators.course_validator import ValidateCourse
 import psycopg2
+from flask import Blueprint, jsonify, request
+from flask_jwt_extended import jwt_required
+
+from ..validators.course_validator import ValidateCourse
+from .controller import CourseController
 
 course = Blueprint('course', __name__)
 course_controller = CourseController()
@@ -125,3 +127,24 @@ def view_all_courses():
         'courses': courses,
         'message': 'courses fetched!'
     }), 200
+
+@course.route('/api/v1/courses/<course_id>/enroll', methods=['POST'])
+@jwt_required
+def enroll_for_course(course_id):
+    """
+    Function enables user to enroll for a specific course.
+    """
+    if not course_controller.query_course(course_id):
+        return jsonify({
+            'message': 'course doesnot exist in database'
+        }), 400
+
+    elif course_controller.check_if_already_enrolled(course_id):
+        return jsonify({
+            'message': 'already enrolled for this course'
+        }), 400
+    else:
+        course_controller.enroll_course(course_id)
+        return jsonify({
+            'message': 'successfully enrolled'
+        }), 200
