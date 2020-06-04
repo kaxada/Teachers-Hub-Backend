@@ -55,3 +55,21 @@ class ModuleController:
                     'message': 'course doesnot exist in database'
                 }), 400
         return jsonify({"message": is_valid}), 400
+
+    def fetch_course_modules(self, course_id):
+        """Fetches all modules on a course"""
+        modules = []
+        sql = """SELECT * FROM modules WHERE CourseID='{}'"""
+        self.cur.execute(sql.format(course_id))
+        rows = self.cur.fetchall()
+        for row in rows:
+            modules.append({
+                "module_id": row[0],
+                "module_title": row[1],
+                "module_description": row[2],
+                "module_content": row[3],
+                "module_date_added": row[4],
+                "course_id": row[5]
+            })
+        return modules
+
