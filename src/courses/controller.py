@@ -1,5 +1,5 @@
 from database_handler import DbConn
-
+from flask_jwt_extended import get_jwt_identity
 
 class CourseController:
 
@@ -11,6 +11,7 @@ class CourseController:
         self.cur = conn.create_connection()
         conn.create_organizations_table()
         conn.create_courses_table()
+        conn.create_enrolled_table()
 
     def create_course(self, data):
         """Creates a course."""
@@ -65,3 +66,21 @@ class CourseController:
                 "organization_name": row[6]
                 })
         return courses
+
+    def check_if_already_enrolled(self, course_id):
+        """Checks if a user has already enrolled for the course"""
+        username = get_jwt_identity()['username']
+        sql = """SELECT * FROM enrollement WHERE username= '{}' and CourseID='{}'"""
+        self.cur.execute(sql.format(username, course_id))
+        row = self.cur.fetchone()
+        print(row)
+        if row:
+            return True
+        else:
+            return False
+
+    def enroll_course(self, course_id):
+        """Enroll for a course"""
+        username = get_jwt_identity()['username']
+        query = """INSERT INTO enrollement(CourseID, username) VALUES('{}', '{}')"""
+        self.cur.execute(query.format(course_id, username))

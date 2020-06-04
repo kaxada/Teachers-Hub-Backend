@@ -26,6 +26,13 @@ class DbConn:
             password VARCHAR(100) NOT NULL,
             role VARCHAR(100) NOT NULL); ''')
 
+    def create_enrolled_table(self):
+        """A function to create the course table."""
+        self.cur.execute('''CREATE TABLE IF NOT EXISTS enrollement
+        (EnrollID  SERIAL PRIMARY KEY  NOT NULL,
+         CourseID INTEGER REFERENCES courses(CourseID) ON DELETE CASCADE,
+         username VARCHAR(100) REFERENCES users(username) ON DELETE CASCADE); ''')
+
     def create_organizations_table(self):
         """A function to create the organization table."""
         self.cur.execute('''CREATE TABLE IF NOT EXISTS organizations

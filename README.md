@@ -17,18 +17,19 @@ This project addresses the following SDG targets:
 
 ## Usage
 
-| REQUEST | ROUTE                         | FUNCTIONALITY             |
-| ------- | ----------------------------- | ------------------------- |
-| GET     | api/v1/courses                | Fetches all courses       |
-| GET     | api/v1/courses/&lt;course_id> | Fetches a single course   |
-| POST    | api/v1/courses                | Adds a new course         |
-| PUT     | api/v1/courses/&lt;course_id> | Updates a single course   |
-| DELETE  | api/v1/courses/&lt;course_id> | Deletes a course          |
-| POST    | api/v1/auth/login             | Logs in a user            |
-| POST    | api/v1/auth/signup            | Registers a user          |
-| POST    | api/v1/auth/logout            | Logs out a user           |
-| POST    | api/v1/categories             | Creates a course category |
-| GET     | api/v1/auth/profile           | Fetches a user's profile  |
+| REQUEST | ROUTE                                | FUNCTIONALITY             |
+| ------- | ------------------------------------ | ------------------------- |
+| GET     | api/v1/courses                       | Fetches all courses       |
+| GET     | api/v1/courses/&lt;course_id>        | Fetches a single course   |
+| POST    | api/v1/courses                       | Adds a new course         |
+| PUT     | api/v1/courses/&lt;course_id>        | Updates a single course   |
+| DELETE  | api/v1/courses/&lt;course_id>        | Deletes a course          |
+| POST    | api/v1/auth/login                    | Logs in a user            |
+| POST    | api/v1/auth/signup                   | Registers a user          |
+| POST    | api/v1/auth/logout                   | Logs out a user           |
+| POST    | api/v1/categories                    | Creates a course category |
+| GET     | api/v1/auth/profile                  | Fetches a user's profile  |
+| POST    | api/v1/courses/&lt;course_id>/enroll | Enroll for a course       |
 
 ## Setup
 
