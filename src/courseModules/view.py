@@ -1,13 +1,14 @@
 from flask import Blueprint, jsonify, request
 from os import environ
 from .controller import ModuleController
-
+from ..courses.controller import CourseController
 import cloudinary
 import cloudinary.uploader
 from cloudinary.uploader import upload
 import cloudinary.api
 module = Blueprint('module', __name__)
 module_controller = ModuleController()
+course_controller = CourseController()
 
 cloudinary.config(
     cloud_name=environ.get('CLOUDINARY_CLOUD_NAME'),
@@ -29,3 +30,13 @@ def upload_file():
     if file:
         result = upload(file, folder="/videos")
         return result["secure_url"]
+
+@module.route('/api/v1/courses/<course_id>/modules', methods=['GET'])
+def get_modules(course_id):
+    if course_controller.query_course(course_id):
+        modules = module_controller.fetch_course_modules(course_id)
+        return jsonify({"message": modules }), 200
+    else:
+        return jsonify({
+            'message': 'course doesnot exist in database'
+        }), 400
