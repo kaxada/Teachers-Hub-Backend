@@ -28,10 +28,11 @@ This project addresses the following SDG targets:
 | POST    | api/v1/auth/signup            | Registers a user          |
 | POST    | api/v1/auth/logout            | Logs out a user           |
 | POST    | api/v1/categories             | Creates a course category |
+| GET     | api/v1/auth/profile           | Fetches a user's profile  |
 
 ## Setup
 
-1.  You should have **Python 3.5+** and **git** installed. 
+1.  You should have **Python 3.5+** and **git** installed.
 2.  Inorder to get started, clone this repository using `git clone https://github.com/BuildForSDG/Teachers-Hub-Backend.git`
 3.  Change in the repository directory `cd teachers-hub-backend`
 4.  Set up a virtual environment by running `python3 -m venv <name_of_the_environment>`

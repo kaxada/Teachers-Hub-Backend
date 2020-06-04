@@ -77,7 +77,8 @@ class UserController:
             if not check_password_hash(db_user[1], data['password']):
                 return jsonify({'message': 'Invalid password'}), 400
             else:
-                access_token = create_access_token(identity=identity, expires_delta=expires)
+                access_token = create_access_token(
+                    identity=identity, expires_delta=expires)
                 return jsonify({'message': 'successfully logged in',
                                 'token': access_token
                                 }), 200
@@ -111,3 +112,11 @@ class UserController:
             return True
         else:
             return False
+
+    def get_user_profile_details(self, data):
+        sql = """SELECT * FROM users WHERE username = '{}'"""
+        self.cur.execute(sql.format(data['username']))
+        profile_details = self.cur.fetchone()
+        if profile_details:
+            return profile_details
+
