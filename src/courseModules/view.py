@@ -41,22 +41,22 @@ def get_modules(course_id):
             'message': 'course doesnot exist in database'
         }), 400
 
-@module.route('/api/v1/modules/<module_id>', methods=['POST'])
-def add_module_content(module_id):
+@module.route('/api/v1/courses/<course_id>/modules/<module_id>', methods=['POST'])
+def add_module_content(course_id, module_id):
     data = request.get_json()
     if data:
-        return module_controller.register_module_content(data, module_id)
+        return module_controller.register_module_content(data, course_id, module_id)
     else:
         return jsonify({"message": "no data provided"}), 400
 
-@module.route('/api/v1/modules/<module_id>', methods=['GET'])
-def fetch_module_content(module_id):
+@module.route('/api/v1/courses/<course_id>/modules/<module_id>', methods=['GET'])
+def fetch_module_content(course_id, module_id):
     """Fetches module content for a specific module"""
-    if not module_controller.check_module_id_exists(module_id):
+    if not module_controller.check_module_id_exists(course_id, module_id):
         return jsonify({
-            'message': 'module {} does not exist'.format(module_id)
+            'message': 'module {} does not exist on course {}'.format(module_id, course_id)
         }), 400
-    modules = module_controller.fetch_module_content(module_id)
+    module_content = module_controller.fetch_module_content(course_id, module_id)
     return jsonify({
-        'modules': modules,
+        'module_content': module_content,
     }), 200

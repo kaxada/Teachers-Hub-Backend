@@ -2,6 +2,8 @@ from flask import jsonify, Blueprint, request
 from .controller import ArticleController
 from ..validators.article_validator import ValidateArticle
 import psycopg2
+from flask import jsonify, Blueprint
+from .controller import ArticleController
 
 article = Blueprint('article', __name__)
 article_controller = ArticleController()
@@ -30,3 +32,39 @@ def add_new_article():
             return jsonify({"message": "article title already exists"}), 400
     else:
         return jsonify({"message": "article details not provided"}), 400
+
+
+@article.route('/api/v1/articles/<article_id>', methods=['DELETE'])
+def delete_article(article_id):
+    """
+    Function enables admin to delete an article from the database.
+    """
+    try:
+        article_id = int(article_id)
+        if not article_controller.query_article(article_id):
+            return jsonify({
+                'message': 'article does not exist in database'
+            }), 400
+
+        article_controller.delete_article(article_id)
+        return jsonify({
+            'message': 'article deleted successfully!'
+        }), 200
+    except ValueError:
+        return jsonify({
+            'message': 'The article id should be an integer!'
+        }), 400
+@article.route('/api/v1/articles', methods=['GET'])
+def view_all_articles():
+    """
+    Function enables user to view all the available articles from the database.
+    """
+    if not article_controller.query_all_articles():
+        return jsonify({
+            'message': 'No available articles in the database'
+        }), 400
+    articles = article_controller.query_all_articles()
+    return jsonify({
+        'articles': articles,
+        'message': 'articles fetched!'
+    }), 200

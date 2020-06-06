@@ -21,3 +21,23 @@ class ArticleController:
                                  data['author_name'],
                                  data['article_body'])
         self.cur.execute(sql_command)
+
+    def delete_article(self, article_id):
+        ''' Deletes an article '''
+        sql = """ DELETE FROM articles WHERE article_id ='{}'"""
+        sql_command = sql.format(article_id)
+        self.cur.execute(sql_command)
+
+    def query_article(self, article_id):
+        ''' selects an article  from database '''
+        sql = """ SELECT * FROM articles  WHERE article_id ='{}' """
+        sql_command = sql.format(article_id)
+        self.cur.execute(sql_command)
+        row = self.cur.fetchone()
+        return row
+    def query_all_articles(self):
+        ''' selects all available articles from the database '''
+        sql = """ SELECT * FROM articles  """
+        self.cur.execute(sql)
+        rows = self.cur.fetchall()
+        return rows
