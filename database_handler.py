@@ -40,9 +40,17 @@ class DbConn:
             ModuleID SERIAL PRIMARY KEY NOT NULL,
             module_title VARCHAR(250) NOT NULL,
             module_description VARCHAR(255) NOT NULL,
-            module_content VARCHAR(500),
             module_date_added DATE NOT NULL,
             CourseID INTEGER REFERENCES courses(CourseID) ON DELETE CASCADE);''')
+
+    def create_modules_content_table(self):
+        """Creates modules content table."""
+        self.cur.execute('''CREATE TABLE IF NOT EXISTS modules_content(
+            ModuleContentID SERIAL PRIMARY KEY NOT NULL,
+            module_content VARCHAR(500) NOT NULL,
+            module_content_title VARCHAR(255) NOT NULL,
+            module_content_date_added DATE NOT NULL,
+            ModuleID INTEGER REFERENCES modules(ModuleID) ON DELETE CASCADE);''')
 
     def create_organizations_table(self):
         """A function to create the organization table."""
