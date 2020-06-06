@@ -1,4 +1,7 @@
 from database_handler import DbConn
+from datetime import datetime
+
+now = datetime.now()
 
 
 class ArticleController:
@@ -20,3 +23,18 @@ class ArticleController:
         self.cur.execute(sql_command)
         row = self.cur.fetchone()
         return row
+
+    def update_article(self, data, article_id):
+        """Updates a article."""
+        sql = """UPDATE articles SET article_title='{}', author_name='{}',\
+        article_body='{}' ,updated_at='{}' WHERE article_id='{}'"""
+        sql_command = sql.format(data['article_title'],
+                                 data['author_name'], data['article_body'],
+                                 now, article_id)
+        self.cur.execute(sql_command)
+        sql = """ SELECT * FROM articles  WHERE article_id ='{}' """
+        sql_command = sql.format(article_id)
+        self.cur.execute(sql_command)
+        row = self.cur.fetchone()
+        if row:
+            return row
