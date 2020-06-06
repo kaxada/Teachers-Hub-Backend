@@ -35,7 +35,7 @@ def add_new_article():
 @article.route('/api/v1/articles/<article_id>', methods=['DELETE'])
 def delete_article(article_id):
     """
-    Function enables admin to delete an article from the database.
+    Function enables user to delete an article from the database.
     """
     try:
         article_id = int(article_id)
