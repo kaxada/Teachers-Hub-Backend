@@ -1,36 +1,21 @@
-from flask import jsonify, Blueprint, request
+from flask import jsonify, Blueprint
 from .controller import ArticleController
-from ..validators.article_validator import ValidateArticle
-import psycopg2
 
 article = Blueprint('article', __name__)
 article_controller = ArticleController()
 
 
-@article.route('/api/v1/articles/<article_id>', methods=['GET'])
-def view_article(article_id):
+@article.route('/api/v1/articles', methods=['GET'])
+def view_all_articles():
     """
-    Function enables user to view an article from the database.
+    Function enables user to view all the available articles from the database.
     """
-    try:
-        article_id = int(article_id)
-        if not article_controller.query_article(article_id):
-            return jsonify({
-                'message': 'article does not exist in database'
-            }), 400
-        article = article_controller.query_article(article_id)
+    if not article_controller.query_all_articles():
         return jsonify({
-            'article': {
-                '_id': article[0],
-                'article_title': article[1],
-                'author_name': article[2],
-                'created_at': article[3],
-                'updates_at': article[4],
-                'article_body': article[5],
-            },
-            'message': 'article fetched!'
-        }), 200
-    except ValueError:
-        return jsonify({
-            'message': 'The article id should be an integer!'
+            'message': 'No available articles in the database'
         }), 400
+    articles = article_controller.query_all_articles()
+    return jsonify({
+        'articles': articles,
+        'message': 'articles fetched!'
+    }), 200
