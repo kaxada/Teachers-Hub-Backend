@@ -46,7 +46,7 @@ def delete_article(article_id):
 
         article_controller.delete_article(article_id)
         return jsonify({
-            'message': 'article deleted!'
+            'message': 'article deleted successfully!'
         }), 200
     except ValueError:
         return jsonify({
