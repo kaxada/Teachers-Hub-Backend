@@ -17,5 +17,5 @@ def view_all_articles():
     articles = article_controller.query_all_articles()
     return jsonify({
         'articles': articles,
-        'message': 'articles fetched'
+        'message': 'articles fetched!'
     }), 200
