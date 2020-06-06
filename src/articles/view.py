@@ -1,7 +1,5 @@
-from flask import jsonify, Blueprint, request
+from flask import jsonify, Blueprint
 from .controller import ArticleController
-from ..validators.article_validator import ValidateArticle
-import psycopg2
 
 article = Blueprint('article', __name__)
 article_controller = ArticleController()
