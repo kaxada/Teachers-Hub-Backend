@@ -4,6 +4,7 @@ from decouple import config
 
 
 class DbConn:
+
     def create_connection(self):
         """Function that creates the database based on the application
         environment."""
@@ -43,7 +44,6 @@ class DbConn:
             module_date_added DATE NOT NULL,
             CourseID INTEGER REFERENCES courses(CourseID) ON DELETE CASCADE);''')
 
-
     def create_organizations_table(self):
         """A function to create the organization table."""
         self.cur.execute('''CREATE TABLE IF NOT EXISTS organizations
@@ -59,9 +59,19 @@ class DbConn:
         course_title VARCHAR(255) NOT NULL,
         course_description VARCHAR(500) NOT NULL,
         course_duration INTEGER NOT NULL,
-        total_enrolled INTEGER,
+        total_enrolled INTEGER, 
         Organization_name VARCHAR REFERENCES organizations(Organization_name) \
              ON DELETE CASCADE); ''')
+
+    def create_articles_table(self):
+        """A function to create the articles table."""
+        self.cur.execute('''CREATE TABLE IF NOT EXISTS articles
+        (article_id  SERIAL PRIMARY KEY  NOT NULL,
+        article_title VARCHAR(300) NOT NULL UNIQUE,
+        author_name VARCHAR(255) NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+        article_body TEXT NOT NULL ); ''')
 
     def drop_tables(self, table_name):
         """ Drops the tables that exist in the database"""
