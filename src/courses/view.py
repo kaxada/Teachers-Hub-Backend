@@ -17,16 +17,16 @@ def add_new_course():
     if data:
         validate_course = ValidateCourse(data)
         try:
-            if validate_course.validate_course_name() and \
+            if validate_course.validate_course_category() and \
                validate_course.validate_course_duration():
                 course_controller.create_course(data)
                 return jsonify({"message": "course added successfully"}), 200
-            elif not validate_course.validate_course_name():
-                return jsonify({"message": "enter valid course name"}), 400
+            elif not validate_course.validate_course_category():
+                return jsonify({"message": "enter valid course category"}), 400
             elif not validate_course.validate_course_duration():
                 return jsonify({"message": "enter valid course duration"}), 400
         except psycopg2.Error:
-            return jsonify({"message": "course name already exists"}), 400
+            return jsonify({"message": "course already exists in course category {}".format(data['course_category'])}), 400
     else:
         return jsonify({"message": "course details not provided"}), 400
 
@@ -69,7 +69,7 @@ def view_course(course_id):
         return jsonify({
             'course': {
                 'course_id': course[0],
-                'course_name': course[1],
+                'course_category': course[1],
                 'course_title': course[2],
                 'course_description': course[3],
                 'course_duration': course[4]
@@ -97,12 +97,12 @@ def update_course(course_id):
                 return jsonify({
                     'message': 'Course does not exist in database'
                 }), 400
-            elif validate_course.validate_course_name() and \
+            elif validate_course.validate_course_category() and \
                validate_course.validate_course_duration():
                 course_controller.update_course(data, course_id)
                 return jsonify({"message": "course updated successfully"}), 200
-            elif not validate_course.validate_course_name():
-                return jsonify({"message": "enter valid course name"}), 400
+            elif not validate_course.validate_course_category():
+                return jsonify({"message": "enter valid course category"}), 400
             elif not validate_course.validate_course_duration():
                 return jsonify({"message": "enter valid course duration"}), 400
         except ValueError:
