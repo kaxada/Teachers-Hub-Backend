@@ -30,3 +30,25 @@ def add_new_article():
             return jsonify({"message": "article title already exists"}), 400
     else:
         return jsonify({"message": "article details not provided"}), 400
+
+
+@article.route('/api/v1/articles/<article_id>', methods=['DELETE'])
+def delete_article(article_id):
+    """
+    Function enables admin to delete an article from the database.
+    """
+    try:
+        article_id = int(article_id)
+        if not article_controller.query_article(article_id):
+            return jsonify({
+                'message': 'article does not exist in database'
+            }), 400
+
+        article_controller.delete_article(article_id)
+        return jsonify({
+            'message': 'article deleted!'
+        }), 200
+    except ValueError:
+        return jsonify({
+            'message': 'The article id should be an integer!'
+        }), 400
