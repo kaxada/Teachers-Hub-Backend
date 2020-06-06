@@ -17,25 +17,25 @@ This project addresses the following SDG targets:
 
 ## Usage
 
-| REQUEST | ROUTE                                 | FUNCTIONALITY                             |
-| ------- | ------------------------------------- | ----------------------------------------- |
-| GET     | api/v1/courses                        | Fetches all courses                       |
-| GET     | api/v1/courses/&lt;course_id>         | Fetches a single course                   |
-| POST    | api/v1/courses                        | Adds a new course                         |
-| PUT     | api/v1/courses/&lt;course_id>         | Updates a single course                   |
-| DELETE  | api/v1/courses/&lt;course_id>         | Deletes a course                          |
-| POST    | api/v1/auth/login                     | Logs in a user                            |
-| POST    | api/v1/auth/signup                    | Registers a user                          |
-| POST    | api/v1/auth/logout                    | Logs out a user                           |
-| POST    | api/v1/categories                     | Creates a course category                 |
-| GET     | api/v1/auth/profile                   | Fetches a user's profile                  |
-| POST    | api/v1/courses/&lt;course_id>/enroll  | Enroll for a course                       |
-| POST    | api/v1/courses/&lt;course_id>/modules | Add module to course                      |
-| GET     | api/v1/courses/&lt;course_id>/modules | Fetch modules on a course                 |
-| POST    | api/v1/courses/&lt;course_id>/modules | Register a course module                  |
-| GET     | api/v1/courses/&lt;course_id>/modules | Fetch modules on a course                 |
-| GET     | api/v1/modules/&lt;module_id>         | Fetch module content for a single module  |
-| POST    | api/v1/modules/&lt;module_id>         | Create module content for a single module |
+| REQUEST | ROUTE                                                | FUNCTIONALITY                             |
+| ------- | ---------------------------------------------------- | ----------------------------------------- |
+| GET     | api/v1/courses                                       | Fetches all courses                       |
+| GET     | api/v1/courses/&lt;course_id>                        | Fetches a single course                   |
+| POST    | api/v1/courses                                       | Adds a new course                         |
+| PUT     | api/v1/courses/&lt;course_id>                        | Updates a single course                   |
+| DELETE  | api/v1/courses/&lt;course_id>                        | Deletes a course                          |
+| POST    | api/v1/auth/login                                    | Logs in a user                            |
+| POST    | api/v1/auth/signup                                   | Registers a user                          |
+| POST    | api/v1/auth/logout                                   | Logs out a user                           |
+| POST    | api/v1/categories                                    | Creates a course category                 |
+| GET     | api/v1/auth/profile                                  | Fetches a user's profile                  |
+| POST    | api/v1/courses/&lt;course_id>/enroll                 | Enroll for a course                       |
+| POST    | api/v1/courses/&lt;course_id>/modules                | Add module to course                      |
+| GET     | api/v1/courses/&lt;course_id>/modules                | Fetch modules on a course                 |
+| POST    | api/v1/courses/&lt;course_id>/modules                | Register a course module                  |
+| GET     | api/v1/courses/&lt;course_id>/modules                | Fetch modules on a course                 |
+| GET     | api/v1/courses/&lt;course_id>/modules/&lt;module_id> | Fetch module content for a single module  |
+| POST    | api/v1/courses/&lt;course_id>/modules/&lt;module_id> | Create module content for a single module |
 
 ## Setup
 

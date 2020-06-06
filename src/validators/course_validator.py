@@ -9,14 +9,14 @@ class ValidateCourse:
     def __init__(self, data):
         self.data = data
 
-    def validate_course_name(self):
+    def validate_course_category(self):
         """validates the course name
 
         Returns:
             [boolean] -- [True if course name is valid else False]
         """
         try:
-            fields = ['course_name', 'course_title']
+            fields = ['course_category', 'course_title']
             for field in fields:
                 if not isinstance(self.data[field], str)  or \
                 self.data[field] == "":
