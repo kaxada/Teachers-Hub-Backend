@@ -15,9 +15,9 @@ class CourseController:
 
     def create_course(self, data):
         """Creates a course."""
-        sql = """INSERT INTO courses(course_name, course_title, course_description, course_duration)
+        sql = """INSERT INTO courses(course_category, course_title, course_description, course_duration)
                         VALUES ('{}', '{}', '{}', '{}')"""
-        sql_command = sql.format(data['course_name'], data['course_title'], data['course_description'],
+        sql_command = sql.format(data['course_category'], data['course_title'], data['course_description'],
                                  data['course_duration'])
         self.cur.execute(sql_command)
 
@@ -37,9 +37,9 @@ class CourseController:
 
     def update_course(self, data, course_id):
         """Updates a course."""
-        sql = """UPDATE courses SET course_name='{}', course_duration='{}', course_title='{}', course_description='{}'\
+        sql = """UPDATE courses SET course_category='{}', course_duration='{}', course_title='{}', course_description='{}'\
         WHERE CourseID='{}'"""
-        sql_command = sql.format(data['course_name'],
+        sql_command = sql.format(data['course_category'],
                                 data['course_duration'], data['course_title'], data['course_description'], course_id)
         self.cur.execute(sql_command)
         sql = """ SELECT * FROM courses  WHERE courseID ='{}' """
@@ -58,7 +58,7 @@ class CourseController:
         for row in rows:
             courses.append({
                 "course_id": row[0],
-                "course_name": row[1],
+                "course_category": row[1],
                 "course_title": row[2],
                 "course_description": row[3],
                 "course_duration": row[4],
@@ -73,7 +73,6 @@ class CourseController:
         sql = """SELECT * FROM enrollement WHERE username= '{}' and CourseID='{}'"""
         self.cur.execute(sql.format(username, course_id))
         row = self.cur.fetchone()
-        print(row)
         if row:
             return True
         else:

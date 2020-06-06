@@ -2,17 +2,19 @@ class ModuleValidator:
     def __init__(self, data):
         self.data = data
 
-
     def validate_module_fields(self):
         """Validates module details"""
         module_fields = ["module_title","module_description"]
-        for field in module_fields:
-            if not self.data[field]:
-                return field + " cannot be blank"
-            if field not in self.data.keys():
-                return field + " is missing"
-            if not isinstance(self.data[field], str):
-                return "Enter string value at {}".format(field)
+        try:
+            for field in module_fields:
+                if not self.data[field]:
+                    return field + " cannot be blank"
+                if field not in self.data.keys():
+                    return field + " is missing"
+                if not isinstance(self.data[field], str):
+                    return "Enter string value at {}".format(field)
+        except KeyError:
+            return "Invalid key added"
 
     def validate_module_content(self):
         """Validates module content"""

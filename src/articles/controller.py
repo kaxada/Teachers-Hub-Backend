@@ -35,3 +35,9 @@ class ArticleController:
         self.cur.execute(sql_command)
         row = self.cur.fetchone()
         return row
+    def query_all_articles(self):
+        ''' selects all available articles from the database '''
+        sql = """ SELECT * FROM articles  """
+        self.cur.execute(sql)
+        rows = self.cur.fetchall()
+        return rows
