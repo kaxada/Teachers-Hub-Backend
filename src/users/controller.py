@@ -1,7 +1,8 @@
 from database_handler import DbConn
 from flask import jsonify
 from werkzeug.security import check_password_hash, generate_password_hash
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, get_jwt_identity
+
 from datetime import timedelta
 from src.validators.user_validator import ValidateUser
 
@@ -120,3 +121,11 @@ class UserController:
         if profile_details:
             return profile_details
 
+    #pylint: disable=no-self-use
+    def check_admin_user(self):
+        """Checks the logged in user is an admin"""
+        role = get_jwt_identity()['role'][0]
+        if role == 'Admin':
+            return True
+        else:
+            return False

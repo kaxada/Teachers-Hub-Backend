@@ -17,25 +17,43 @@ This project addresses the following SDG targets:
 
 ## Usage
 
-| REQUEST | ROUTE                                 | FUNCTIONALITY                             |
-| ------- | ------------------------------------- | ----------------------------------------- |
-| GET     | api/v1/courses                        | Fetches all courses                       |
-| GET     | api/v1/courses/&lt;course_id>         | Fetches a single course                   |
-| POST    | api/v1/courses                        | Adds a new course                         |
-| PUT     | api/v1/courses/&lt;course_id>         | Updates a single course                   |
-| DELETE  | api/v1/courses/&lt;course_id>         | Deletes a course                          |
-| POST    | api/v1/auth/login                     | Logs in a user                            |
-| POST    | api/v1/auth/signup                    | Registers a user                          |
-| POST    | api/v1/auth/logout                    | Logs out a user                           |
-| POST    | api/v1/categories                     | Creates a course category                 |
-| GET     | api/v1/auth/profile                   | Fetches a user's profile                  |
-| POST    | api/v1/courses/&lt;course_id>/enroll  | Enroll for a course                       |
-| POST    | api/v1/courses/&lt;course_id>/modules | Add module to course                      |
-| GET     | api/v1/courses/&lt;course_id>/modules | Fetch modules on a course                 |
-| POST    | api/v1/courses/&lt;course_id>/modules | Register a course module                  |
-| GET     | api/v1/courses/&lt;course_id>/modules | Fetch modules on a course                 |
-| GET     | api/v1/modules/&lt;module_id>         | Fetch module content for a single module  |
-| POST    | api/v1/modules/&lt;module_id>         | Create module content for a single module |
+### AUTHENTICATION
+
+| REQUEST | ROUTE              | FUNCTIONALITY    |
+| ------- | ------------------ | ---------------- |
+| POST    | api/v1/auth/login  | Logs in a user   |
+| POST    | api/v1/auth/signup | Registers a user |
+
+### COURSES
+
+| REQUEST | ROUTE                                                | FUNCTIONALITY                             |
+| ------- | ---------------------------------------------------- | ----------------------------------------- |
+| GET     | api/v1/courses                                       | Fetches all courses                       |
+| GET     | api/v1/courses/&lt;course_id>                        | Fetches a single course                   |
+| POST    | api/v1/courses                                       | Adds a new course                         |
+| PUT     | api/v1/courses/&lt;course_id>                        | Updates a single course                   |
+| DELETE  | api/v1/courses/&lt;course_id>                        | Deletes a course                          |
+| POST    | api/v1/courses/&lt;course_id>/enroll                 | Enroll for a course                       |
+| POST    | api/v1/courses/&lt;course_id>/modules                | Add module to course                      |
+| GET     | api/v1/courses/&lt;course_id>/modules                | Fetch modules on a course                 |
+| GET     | api/v1/courses/&lt;course_id>/modules/&lt;module_id> | Fetch module content for a single module  |
+| POST    | api/v1/courses/&lt;course_id>/modules/&lt;module_id> | Create module content for a single module |
+
+### USERS
+
+| REQUEST | ROUTE               | FUNCTIONALITY            |
+| ------- | ------------------- | ------------------------ |
+| GET     | api/v1/auth/profile | Fetches a user's profile |
+
+### ARTICLES
+
+| REQUEST | ROUTE                           | FUNCTIONALITY        |
+| ------- | ------------------------------- | -------------------- |
+| GET     | api/v1/articles                 | Fetch all articles   |
+| POST    | api/v1/articles                 | Add New Article      |
+| DELETE  | api/v1/articles/&lt;article_id> | Delete an article    |
+| PUT     | api/v1/articles/&lt;article_id> | Update an article    |
+| GET     | api/v1/articles/&lt;article_id> | Fetch single article |
 
 ## Setup
 
@@ -54,7 +72,14 @@ View the deployed application here [Teachers Hub API](https://teachershub-backen
 
 ## Authors
 
-List the team behind this project. Their names linked to their Github, LinkedIn, or Twitter accounts should siffice. Ok to signify the role they play in the project, including the TTL and mentor
+-   [Daisy Macharia](https://github.com/daisymacharia) - Mentor
+-   [Maria Nanfuka](https://github.com/mariamiah) - TTL
+-   [Akiyo Fidel](https://github.com/drfidel)
+-   [Lubwama Benjamin](https://github.com/lubwamabenja)
+-   [Kizza Samuel](https://github.com/skizza8)
+-   [Ainembabazi Kirabo](https://github.com/AineKiraboMbabazi)
+-   [Jimmy Were](https://github.com/jwere)
+-   [Simon Peter Ojok](https://github.com/simonojok19)
 
 ## LICENSE
 
