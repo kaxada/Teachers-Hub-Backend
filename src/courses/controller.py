@@ -19,10 +19,10 @@ class CourseController:
 
     def create_course(self, data):
         """Creates a course."""
-        sql = """INSERT INTO courses(course_category, course_title, course_description, course_duration, date_added)
-                        VALUES ('{}', '{}', '{}', '{}', '{}')"""
+        sql = """INSERT INTO courses(course_category, course_title, course_description, course_duration, date_added, course_instructor)
+                        VALUES ('{}', '{}', '{}', '{}', '{}', '{}')"""
         sql_command = sql.format(data['course_category'], data['course_title'], data['course_description'],
-                                 data['course_duration'], datetime.now())
+                                 data['course_duration'], datetime.now(), data['course_instructor'])
         self.cur.execute(sql_command)
 
     def delete_course(self, course_id):
@@ -51,10 +51,10 @@ class CourseController:
 
     def update_course(self, data, course_id):
         """Updates a course."""
-        sql = """UPDATE courses SET course_category='{}', course_duration='{}', course_title='{}', course_description='{}'\
+        sql = """UPDATE courses SET course_category='{}', course_duration='{}', course_title='{}', course_description='{}', course_instructor='{}'\
         WHERE CourseID='{}'"""
         sql_command = sql.format(data['course_category'],
-                                data['course_duration'], data['course_title'], data['course_description'], course_id)
+                                data['course_duration'], data['course_title'], data['course_description'], data['course_instructor'], course_id)
         self.cur.execute(sql_command)
         sql = """ SELECT * FROM courses  WHERE courseID ='{}' """
         sql_command = sql.format(course_id)
@@ -77,7 +77,9 @@ class CourseController:
                 "course_description": row[3],
                 "course_duration": row[4],
                 "total_enrolled": row[5],
-                "organization_name": row[6]
+                "date_added": row[6],
+                "course_instructor": row[7],
+                "organization_name": row[8]
                 })
         return courses
 
@@ -97,3 +99,13 @@ class CourseController:
         username = get_jwt_identity()['username']
         query = """INSERT INTO enrollement(CourseID, username) VALUES('{}', '{}')"""
         self.cur.execute(query.format(course_id, username))
+
+    def check_instructor_exists(self, course_instructor):
+        """Checks instructor exists in courses"""
+        sql = """SELECT * FROM users WHERE username='{}' and role='Instructor'"""
+        self.cur.execute(sql.format(course_instructor))
+        row = self.cur.fetchone()
+        if row:
+            return True
+        else:
+            return False

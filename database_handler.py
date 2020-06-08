@@ -70,6 +70,7 @@ class DbConn:
         course_duration INTEGER NOT NULL,
         total_enrolled INTEGER, 
         date_added DATE NOT NULL,
+        course_instructor VARCHAR(255) REFERENCES users(username) ON DELETE CASCADE,
         Organization_name VARCHAR REFERENCES organizations(Organization_name) \
              ON DELETE CASCADE); ''')
 

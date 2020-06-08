@@ -72,8 +72,8 @@ class ValidateUser:
     def validate_user_role(self):
         if self.data['role'] != 'Admin' and \
             self.data['role'] != 'Teacher' and \
-            self.data['role'] != 'Institution':
-            return "Role must be either Admin, Teacher, Institution"
+            self.data['role'] != 'Instructor':
+            return "Role must be either Admin, Teacher, Instructor"
 
     def is_valid(self):
         """combines all field validation"""
