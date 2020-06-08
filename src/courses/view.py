@@ -116,8 +116,11 @@ def update_course(course_id):
                 }), 400
             elif validate_course.validate_course_category() and \
                validate_course.validate_course_duration():
-                course_controller.update_course(data, course_id)
-                return jsonify({"message": "course updated successfully"}), 200
+                if course_controller.check_instructor_exists(data['course_instructor']):
+                    course_controller.update_course(data, course_id)
+                    return jsonify({"message": "course updated successfully"}), 200
+                else:
+                    return jsonify({"message": "user does not exist or not registered as instructor"}),400
             elif not validate_course.validate_course_category():
                 return jsonify({"message": "enter valid course category"}), 400
             elif not validate_course.validate_course_duration():

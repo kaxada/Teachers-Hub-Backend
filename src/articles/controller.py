@@ -1,6 +1,6 @@
 from database_handler import DbConn
 from flask_jwt_extended import get_jwt_identity
-
+from datetime import datetime
 
 class ArticleController:
 
@@ -37,6 +37,21 @@ class ArticleController:
         self.cur.execute(sql_command)
         row = self.cur.fetchone()
         return row
+
+    def update_article(self, data, article_id):
+        """Updates a article."""
+        sql = """UPDATE articles SET article_title='{}',\
+        article_body='{}' ,updated_at='{}' WHERE article_id='{}'"""
+        sql_command = sql.format(data['article_title'], data['article_body'],
+                                 datetime.now(), article_id)
+        self.cur.execute(sql_command)
+        sql = """ SELECT * FROM articles  WHERE article_id ='{}' """
+        sql_command = sql.format(article_id)
+        self.cur.execute(sql_command)
+        row = self.cur.fetchone()
+        if row:
+            return row
+
     def query_all_articles(self):
         ''' selects all available articles from the database '''
         sql = """ SELECT * FROM articles  """
