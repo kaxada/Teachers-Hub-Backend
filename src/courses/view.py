@@ -1,43 +1,52 @@
 import psycopg2
 from flask import Blueprint, jsonify, request
 from flask_jwt_extended import jwt_required
-
 from ..validators.course_validator import ValidateCourse
 from .controller import CourseController
+from ..users.controller import UserController
 
 course = Blueprint('course', __name__)
 course_controller = CourseController()
+user_controller = UserController()
 
 
 @course.route('/api/v1/courses', methods=['POST'])
+@jwt_required
 def add_new_course():
     """Registers a Course."""
     data = request.get_json()
 
     if data:
+        if not user_controller.check_admin_user():
+            return jsonify({"message": "only Admins allowed"}), 401
         validate_course = ValidateCourse(data)
-        try:
-            if validate_course.validate_course_category() and \
-               validate_course.validate_course_duration():
+        if validate_course.validate_course_category() and \
+            validate_course.validate_course_duration():
+            if not course_controller.query_course_on_category(data):
                 course_controller.create_course(data)
                 return jsonify({"message": "course added successfully"}), 200
-            elif not validate_course.validate_course_category():
-                return jsonify({"message": "enter valid course category"}), 400
-            elif not validate_course.validate_course_duration():
-                return jsonify({"message": "enter valid course duration"}), 400
-        except psycopg2.Error:
-            return jsonify({"message": "course already exists in course category {}".format(data['course_category'])}), 400
+            else:
+                return jsonify({"message": "course already exists in category"}), 400
+        elif not validate_course.validate_course_category():
+            return jsonify({"message": "enter valid course category"}), 400
+        elif not validate_course.validate_course_duration():
+            return jsonify({"message": "enter valid course duration"}), 400
+
+            # return jsonify({"message": "course already exists in course category {}".format(data['course_category'])}), 400
     else:
         return jsonify({"message": "course details not provided"}), 400
 
 
 @course.route('/api/v1/courses/<course_id>', methods=['DELETE'])
+@jwt_required
 def delete_course(course_id):
     """
     Function enables admin to delete a course from the database.
 
     """
     try:
+        if not user_controller.check_admin_user():
+            return jsonify({"message": "only Admins allowed"}), 401
         course_id = int(course_id)
         if not course_controller.query_course(course_id):
             return jsonify({
@@ -83,6 +92,7 @@ def view_course(course_id):
 
 
 @course.route('/api/v1/courses/<course_id>', methods=['PUT'])
+@jwt_required
 def update_course(course_id):
     """
     Function enables user to modify a course from the database.
@@ -90,6 +100,8 @@ def update_course(course_id):
     data = request.get_json()
 
     if data:
+        if not user_controller.check_admin_user():
+            return jsonify({"message": "only Admins allowed"}), 401
         validate_course = ValidateCourse(data)
         try:
             course_id = int(course_id)

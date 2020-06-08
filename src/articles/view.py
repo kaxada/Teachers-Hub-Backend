@@ -4,12 +4,16 @@ from ..validators.article_validator import ValidateArticle
 import psycopg2
 from flask import jsonify, Blueprint
 from .controller import ArticleController
+from flask_jwt_extended import jwt_required
 
+from ..users.controller import UserController
 article = Blueprint('article', __name__)
 article_controller = ArticleController()
+user_controller = UserController()
 
 
 @article.route('/api/v1/articles', methods=['POST'])
+@jwt_required
 def add_new_article():
     """posts a new article"""
     data = request.get_json()
@@ -18,14 +22,11 @@ def add_new_article():
         validate_article = ValidateArticle(data)
         try:
             if validate_article.validate_article_title() and\
-                validate_article.validate_author_name() and\
                 validate_article.validate_article_body():
                 article_controller.create_article(data)
                 return jsonify({"message": "article added successfully"}), 200
             elif not validate_article.validate_article_title():
                 return jsonify({"message": "enter valid article title"}), 400
-            elif not validate_article.validate_author_name():
-                return jsonify({"message": "enter valid author name"}), 400
             elif not validate_article.validate_article_body():
                 return jsonify({"message": "enter valid article body "}), 400
         except psycopg2.Error:
@@ -35,11 +36,14 @@ def add_new_article():
 
 
 @article.route('/api/v1/articles/<article_id>', methods=['DELETE'])
+@jwt_required
 def delete_article(article_id):
     """
     Function enables admin to delete an article from the database.
     """
     try:
+        if not article_controller.check_author(article_id) and not user_controller.check_admin_user():
+            return jsonify({"message": "only Admins and authors allowed"}), 401
         article_id = int(article_id)
         if not article_controller.query_article(article_id):
             return jsonify({

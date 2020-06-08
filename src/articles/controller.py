@@ -1,4 +1,5 @@
 from database_handler import DbConn
+from flask_jwt_extended import get_jwt_identity
 
 
 class ArticleController:
@@ -15,10 +16,11 @@ class ArticleController:
 
     def create_article(self, data):
         """Creates an article."""
-        sql = """INSERT INTO articles(article_title,author_name,article_body)
+        author_name = get_jwt_identity()['username']
+        sql = """INSERT INTO articles(article_title, author_name, article_body)
                         VALUES ('{}', '{}','{}')"""
         sql_command = sql.format(data['article_title'],
-                                 data['author_name'],
+                                 author_name,
                                  data['article_body'])
         self.cur.execute(sql_command)
 
@@ -41,3 +43,14 @@ class ArticleController:
         self.cur.execute(sql)
         rows = self.cur.fetchall()
         return rows
+
+    def check_author(self, article_id):
+        """return checks author for authorization purposes"""
+        username = get_jwt_identity()['username']
+        sql = """SELECT author_name FROM articles WHERE article_id='{}'"""
+        self.cur.execute(sql.format(article_id))
+        row = self.cur.fetchone()
+        if row and row[0] == username:
+            return True
+        else:
+            return False

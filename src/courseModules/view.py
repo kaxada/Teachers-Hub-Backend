@@ -1,14 +1,20 @@
-from flask import Blueprint, jsonify, request
 from os import environ
-from .controller import ModuleController
-from ..courses.controller import CourseController
+
 import cloudinary
+import cloudinary.api
 import cloudinary.uploader
 from cloudinary.uploader import upload
-import cloudinary.api
+from flask import Blueprint, jsonify, request
+from flask_jwt_extended import jwt_required
+
+from ..users.controller import UserController
+from ..courses.controller import CourseController
+from .controller import ModuleController
+
 module = Blueprint('module', __name__)
 module_controller = ModuleController()
 course_controller = CourseController()
+user_controller = UserController()
 
 cloudinary.config(
     cloud_name=environ.get('CLOUDINARY_CLOUD_NAME'),
@@ -16,10 +22,13 @@ cloudinary.config(
     api_secret=environ.get('CLOUDINARY_API_SECRET')
 )
 @module.route('/api/v1/courses/<course_id>/modules', methods=['POST'])
+@jwt_required
 def add_new_module(course_id):
     """Registers a module to a specific course."""
     data = request.get_json()
     if data:
+        if not user_controller.check_admin_user():
+            return jsonify({"message": "only Admins allowed"}), 401
         return module_controller.add_module_controller(data, course_id)
     else:
         return jsonify({"message": "no data added"}), 400
@@ -42,9 +51,12 @@ def get_modules(course_id):
         }), 400
 
 @module.route('/api/v1/courses/<course_id>/modules/<module_id>', methods=['POST'])
+@jwt_required
 def add_module_content(course_id, module_id):
     data = request.get_json()
     if data:
+        if not user_controller.check_admin_user():
+            return jsonify({"message": "only Admins allowed"}), 401
         return module_controller.register_module_content(data, course_id, module_id)
     else:
         return jsonify({"message": "no data provided"}), 400
