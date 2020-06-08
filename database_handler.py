@@ -88,7 +88,7 @@ class DbConn:
         """A function to create the articles table."""
         self.cur.execute('''CREATE TABLE IF NOT EXISTS articles
         (article_id  SERIAL PRIMARY KEY  NOT NULL,
-        article_title VARCHAR(300) NOT NULL UNIQUE,
+        article_title VARCHAR(300) NOT NULL,
         author_name VARCHAR(255) REFERENCES users(username) ON DELETE CASCADE,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
