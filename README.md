@@ -47,11 +47,13 @@ This project addresses the following SDG targets:
 
 ### ARTICLES
 
-| REQUEST | ROUTE                           | FUNCTIONALITY      |
-| ------- | ------------------------------- | ------------------ |
-| GET     | api/v1/articles                 | Fetch all articles |
-| POST    | api/v1/articles                 | Add New Article    |
-| DELETE  | api/v1/articles/&lt;article_id> | Delete an article  |
+| REQUEST | ROUTE                           | FUNCTIONALITY        |
+| ------- | ------------------------------- | -------------------- |
+| GET     | api/v1/articles                 | Fetch all articles   |
+| POST    | api/v1/articles                 | Add New Article      |
+| DELETE  | api/v1/articles/&lt;article_id> | Delete an article    |
+| PUT     | api/v1/articles/&lt;article_id> | Update an article    |
+| GET     | api/v1/articles/&lt;article_id> | Fetch single article |
 
 ## Setup
 
@@ -70,7 +72,14 @@ View the deployed application here [Teachers Hub API](https://teachershub-backen
 
 ## Authors
 
-List the team behind this project. Their names linked to their Github, LinkedIn, or Twitter accounts should siffice. Ok to signify the role they play in the project, including the TTL and mentor
+-   [Daisy Macharia](https://github.com/daisymacharia) - Mentor
+-   [Maria Nanfuka](https://github.com/mariamiah) - TTL
+-   [Akiyo Fidel](https://github.com/drfidel)
+-   [Lubwama Benjamin](https://github.com/lubwamabenja)
+-   [Kizza Samuel](https://github.com/skizza8)
+-   [Ainembabazi Kirabo](https://github.com/AineKiraboMbabazi)
+-   [Jimmy Were](https://github.com/jwere)
+-   [Simon Peter Ojok](https://github.com/simonojok19)
 
 ## LICENSE
 
