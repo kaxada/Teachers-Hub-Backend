@@ -65,19 +65,31 @@ class DbConn:
         self.cur.execute('''CREATE TABLE IF NOT EXISTS courses
         (CourseID  SERIAL PRIMARY KEY  NOT NULL,
         course_category VARCHAR(250) NOT NULL,
-        course_title VARCHAR(255) NOT NULL UNIQUE,
+        course_title VARCHAR(255) NOT NULL,
         course_description VARCHAR(500) NOT NULL,
         course_duration INTEGER NOT NULL,
         total_enrolled INTEGER, 
+        date_added DATE NOT NULL,
+        course_instructor VARCHAR(255) REFERENCES users(username) ON DELETE CASCADE,
         Organization_name VARCHAR REFERENCES organizations(Organization_name) \
              ON DELETE CASCADE); ''')
+
+    def create_comments_table(self):
+        """Creates the comments table for each course"""
+        self.cur.execute('''CREATE TABLE IF NOT EXISTS comments(
+            commentID SERIAL PRIMARY KEY NOT NULL,
+            commentBody VARCHAR(255) NOT NULL,
+            commentDateAdded DATE NOT NULL,
+            commentAuthor VARCHAR(255) REFERENCES users(username) \
+            ON DELETE CASCADE,
+            CourseID INTEGER REFERENCES courses(CourseID) ON DELETE CASCADE); ''')
 
     def create_articles_table(self):
         """A function to create the articles table."""
         self.cur.execute('''CREATE TABLE IF NOT EXISTS articles
         (article_id  SERIAL PRIMARY KEY  NOT NULL,
         article_title VARCHAR(300) NOT NULL UNIQUE,
-        author_name VARCHAR(255) NOT NULL,
+        author_name VARCHAR(255) REFERENCES users(username) ON DELETE CASCADE,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
         article_body TEXT NOT NULL ); ''')

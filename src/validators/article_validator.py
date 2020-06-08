@@ -24,22 +24,6 @@ class ValidateArticle:
         except KeyError:
             return False
 
-    def validate_author_name(self):
-
-        """validates the author_name
-
-        Returns:
-            [boolean] -- [True if author_name is valid else False]
-        """
-        try:
-            if not isinstance(self.data['author_name'], str)  or \
-            self.data['author_name'] == "":
-                return False
-            else:
-                return True
-        except KeyError:
-            return False
-
     def validate_article_body(self):
 
         """validates the article_body
