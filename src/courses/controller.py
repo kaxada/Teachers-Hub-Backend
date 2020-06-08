@@ -1,5 +1,9 @@
-from database_handler import DbConn
+from datetime import datetime
+
 from flask_jwt_extended import get_jwt_identity
+
+from database_handler import DbConn
+
 
 class CourseController:
 
@@ -15,10 +19,10 @@ class CourseController:
 
     def create_course(self, data):
         """Creates a course."""
-        sql = """INSERT INTO courses(course_category, course_title, course_description, course_duration)
-                        VALUES ('{}', '{}', '{}', '{}')"""
+        sql = """INSERT INTO courses(course_category, course_title, course_description, course_duration, date_added)
+                        VALUES ('{}', '{}', '{}', '{}', '{}')"""
         sql_command = sql.format(data['course_category'], data['course_title'], data['course_description'],
-                                 data['course_duration'])
+                                 data['course_duration'], datetime.now())
         self.cur.execute(sql_command)
 
     def delete_course(self, course_id):
@@ -34,6 +38,16 @@ class CourseController:
         self.cur.execute(sql_command)
         row = self.cur.fetchone()
         return row
+
+    def query_course_on_category(self, data):
+        """Checks course already exists on category"""
+        sql = """SELECT * FROM courses WHERE course_title='{}' AND course_category='{}'"""
+        self.cur.execute(sql.format(data["course_title"], data['course_category']))
+        row = self.cur.fetchone()
+        if row:
+            return True
+        else:
+            return False
 
     def update_course(self, data, course_id):
         """Updates a course."""
