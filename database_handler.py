@@ -72,6 +72,16 @@ class DbConn:
         Organization_name VARCHAR REFERENCES organizations(Organization_name) \
              ON DELETE CASCADE); ''')
 
+    def create_comments_table(self):
+        """Creates the comments table for each course"""
+        self.cur.execute('''CREATE TABLE IF NOT EXISTS comments(
+            commentID SERIAL PRIMARY KEY NOT NULL,
+            commentBody VARCHAR(255) NOT NULL,
+            commentDateAdded DATE NOT NULL,
+            commentAuthor VARCHAR(255) REFERENCES users(username) \
+            ON DELETE CASCADE,
+            CourseID INTEGER REFERENCES courses(CourseID) ON DELETE CASCADE); ''')
+
     def create_articles_table(self):
         """A function to create the articles table."""
         self.cur.execute('''CREATE TABLE IF NOT EXISTS articles
