@@ -22,17 +22,18 @@ def add_new_course():
         validate_course = ValidateCourse(data)
         if validate_course.validate_course_category() and \
             validate_course.validate_course_duration():
-            if not course_controller.query_course_on_category(data):
-                course_controller.create_course(data)
-                return jsonify({"message": "course added successfully"}), 200
+            if course_controller.check_instructor_exists(data['course_instructor']):
+                if not course_controller.query_course_on_category(data):
+                    course_controller.create_course(data)
+                    return jsonify({"message": "course added successfully"}), 200
+                else:
+                    return jsonify({"message": "course already exists in category"}), 400
             else:
-                return jsonify({"message": "course already exists in category"}), 400
+                return jsonify({"message": "user does not exist or not registered as instructor"}), 400
         elif not validate_course.validate_course_category():
             return jsonify({"message": "enter valid course category"}), 400
         elif not validate_course.validate_course_duration():
             return jsonify({"message": "enter valid course duration"}), 400
-
-            # return jsonify({"message": "course already exists in course category {}".format(data['course_category'])}), 400
     else:
         return jsonify({"message": "course details not provided"}), 400
 
@@ -81,7 +82,11 @@ def view_course(course_id):
                 'course_category': course[1],
                 'course_title': course[2],
                 'course_description': course[3],
-                'course_duration': course[4]
+                'course_duration': course[4],
+                'total_enrolled': course[5],
+                'date_added': course[6],
+                'course_instructor': course[7],
+                'organization_name': course[8]
             },
             'message': 'course fetched!'
         }), 200

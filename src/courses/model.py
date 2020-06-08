@@ -7,5 +7,6 @@ class Course:
         self.course_title = kwargs.get('course_title')
         self.course_description = kwargs.get('course_description')
         self.course_duration = kwargs.get('course_duration')
+        self.course_instructor = kwargs.get('course_instructor')
 
  
