@@ -15,6 +15,10 @@ def add_new_comment(course_id):
     data = request.get_json()
 
     if data:
+        if not course_controller.query_course(course_id):
+            return jsonify({
+                    'message': 'Course does not exist in database'
+                }), 404
         comment_controller.add_new_comment(data, course_id)
         return jsonify({"message": "comment added successfully"}), 200
     else:
