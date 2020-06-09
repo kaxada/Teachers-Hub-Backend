@@ -1,4 +1,4 @@
-from src.users.controller import cur, conn
+from src.users.controller import (cur, conn)
 
 
 class OrganizationController:
@@ -43,7 +43,7 @@ class OrganizationController:
         """Updates an organization."""
         sql = """UPDATE organizations SET organization_name='{}'\
         WHERE OrganizationID='{}'"""
-        sql_command = sql.format(data['organization_name'],organization_id)
+        sql_command = sql.format(data['organization_name'], organization_id)
         cur.execute(sql_command)
         sql = """ SELECT * FROM organizations  WHERE OrganizationID ='{}' """
         sql_command = sql.format(organization_id)
