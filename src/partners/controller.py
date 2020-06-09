@@ -8,20 +8,23 @@ class OrganizationController:
         """Initializes the organizations controller class."""
         conn.create_organizations_table()
 
-    def create_organization(self, data):
+    @staticmethod
+    def create_organization(data):
         """Creates an organization."""
         sql = """INSERT INTO organizations(organization_name)
                         VALUES ('{}')"""
         sql_command = sql.format(data['organization_name'])
         cur.execute(sql_command)
 
-    def delete_organization(self, organization_id):
+    @staticmethod
+    def delete_organization(organization_id):
         ''' Deletes an organization '''
         sql = """ DELETE FROM organizations WHERE OrganizationID ='{}'"""
         sql_command = sql.format(organization_id)
         cur.execute(sql_command)
 
-    def query_organization(self, organization_id):
+    @staticmethod
+    def query_organization(organization_id):
         ''' selects an organization from the database '''
         sql = """ SELECT * FROM organizations  WHERE OrganizationID ='{}' """
         sql_command = sql.format(organization_id)
@@ -29,7 +32,8 @@ class OrganizationController:
         row = cur.fetchone()
         return row
 
-    def check_duplicate_organization(self, data):
+    @staticmethod
+    def check_duplicate_organization(data):
         """Checks if organization already exists"""
         sql = """SELECT * FROM organizations WHERE organization_name='{}'"""
         cur.execute(sql.format(data['organization_name']))
@@ -39,7 +43,8 @@ class OrganizationController:
         else:
             return False
 
-    def update_organization(self, data, organization_id):
+    @staticmethod
+    def update_organization(data, organization_id):
         """Updates an organization."""
         sql = """UPDATE organizations SET organization_name='{}'\
         WHERE OrganizationID='{}'"""
@@ -52,7 +57,8 @@ class OrganizationController:
         if row:
             return row
 
-    def query_all_organizations(self):
+    @staticmethod
+    def query_all_organizations():
         ''' selects all available organizations from the database '''
         organizations = []
         sql = """ SELECT * FROM organizations  """
