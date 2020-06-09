@@ -39,6 +39,16 @@ This project addresses the following SDG targets:
 | GET     | api/v1/courses/&lt;course_id>/modules/&lt;module_id> | Fetch module content for a single module  |
 | POST    | api/v1/courses/&lt;course_id>/modules/&lt;module_id> | Create module content for a single module |
 
+### PARTNERS
+
+| REQUEST | ROUTE                                                | FUNCTIONALITY                             |
+| ------- | ---------------------------------------------------- | ----------------------------------------- |
+| GET     | api/v1/organizations                                 | Fetches all organisations                 |
+| GET     | api/v1/organizations/&lt;organization_id>            | Fetches a single organisation             |
+| POST    | api/v1/organizations                                 | Adds a new organisation                   |
+| PUT     | api/v1/organizations/&lt;organization_id>            | Updates a single organisation             |
+| DELETE  | api/v1/organizations/&lt;organization_id>            | Deletes an organisation                   |
+
 ### USERS
 
 | REQUEST | ROUTE               | FUNCTIONALITY            |
