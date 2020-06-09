@@ -7,14 +7,14 @@ from datetime import timedelta
 from src.validators.user_validator import ValidateUser
 
 
+conn = DbConn()
+cur = conn.create_connection()
 class UserController:
 
     """User controller interfaces with the database."""
 
     def __init__(self):
         """Initializes the user controller class."""
-        conn = DbConn()
-        self.cur = conn.create_connection()
         conn.create_users_table()
 
     def create_user(self, data):
@@ -32,7 +32,7 @@ class UserController:
                                  data['username'],
                                  hashed_password,
                                  data['role'])
-        self.cur.execute(sql_command)
+        cur.execute(sql_command)
 
     def register_user_controller(self, data):
         validate = ValidateUser(data)
@@ -50,8 +50,8 @@ class UserController:
 
     def get_role(self, data):
         sql = """SELECT role FROM users WHERE username = '{}'"""
-        self.cur.execute(sql.format(data['username']))
-        role = self.cur.fetchone()
+        cur.execute(sql.format(data['username']))
+        role = cur.fetchone()
         if role:
             return role
 
@@ -71,8 +71,8 @@ class UserController:
         }
         expires = timedelta(hours=23)
         if is_valid == "valid":
-            self.cur.execute(sql.format(data['username']))
-            db_user = self.cur.fetchone()
+            cur.execute(sql.format(data['username']))
+            db_user = cur.fetchone()
             if not db_user:
                 return jsonify({'message': 'No user found'}), 404
             if not check_password_hash(db_user[1], data['password']):
@@ -93,8 +93,8 @@ class UserController:
         '''
 
         sql_email = """SELECT email FROM users WHERE email='{}'"""
-        self.cur.execute(sql_email.format(the_email))
-        db_email = self.cur.fetchone()
+        cur.execute(sql_email.format(the_email))
+        db_email = cur.fetchone()
         if db_email:
             return True
         else:
@@ -107,8 +107,8 @@ class UserController:
         '''
 
         sql_username = """SELECT username FROM users WHERE username='{}'"""
-        self.cur.execute(sql_username.format(the_username))
-        db_username = self.cur.fetchone()
+        cur.execute(sql_username.format(the_username))
+        db_username = cur.fetchone()
         if db_username:
             return True
         else:
@@ -116,8 +116,8 @@ class UserController:
 
     def get_user_profile_details(self, data):
         sql = """SELECT * FROM users WHERE username = '{}'"""
-        self.cur.execute(sql.format(data['username']))
-        profile_details = self.cur.fetchone()
+        cur.execute(sql.format(data['username']))
+        profile_details = cur.fetchone()
         if profile_details:
             return profile_details
 
