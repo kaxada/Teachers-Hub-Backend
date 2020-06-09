@@ -10,8 +10,6 @@ class ArticleController:
         """Initializes the article controller class."""
         conn = DbConn()
         self.cur = conn.create_connection()
-        conn.create_organizations_table()
-        conn.create_courses_table()
         conn.create_articles_table()
 
     def create_article(self, data):
