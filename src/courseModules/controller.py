@@ -13,7 +13,6 @@ class ModuleController:
         """Initializes the user controller class."""
         conn = DbConn()
         self.cur = conn.create_connection()
-        conn.create_organizations_table()
         conn.create_courses_table()
         conn.create_modules_table()
         conn.create_modules_content_table()

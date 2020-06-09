@@ -13,7 +13,6 @@ class CourseController:
         """Initializes the user controller class."""
         conn = DbConn()
         self.cur = conn.create_connection()
-        conn.create_organizations_table()
         conn.create_courses_table()
         conn.create_enrolled_table()
 
@@ -78,8 +77,7 @@ class CourseController:
                 "course_duration": row[4],
                 "total_enrolled": row[5],
                 "date_added": row[6],
-                "course_instructor": row[7],
-                "organization_name": row[8]
+                "course_instructor": row[7]
                 })
         return courses
 
