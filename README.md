@@ -41,13 +41,13 @@ This project addresses the following SDG targets:
 
 ### PARTNERS
 
-| REQUEST | ROUTE                                                | FUNCTIONALITY                             |
-| ------- | ---------------------------------------------------- | ----------------------------------------- |
-| GET     | api/v1/organizations                                 | Fetches all organisations                 |
-| GET     | api/v1/organizations/&lt;organization_id>            | Fetches a single organisation             |
-| POST    | api/v1/organizations                                 | Adds a new organisation                   |
-| PUT     | api/v1/organizations/&lt;organization_id>            | Updates a single organisation             |
-| DELETE  | api/v1/organizations/&lt;organization_id>            | Deletes an organisation                   |
+| REQUEST | ROUTE                                     | FUNCTIONALITY                 |
+| ------- | ----------------------------------------- | ----------------------------- |
+| GET     | api/v1/organizations                      | Fetches all organisations     |
+| GET     | api/v1/organizations/&lt;organization_id> | Fetches a single organisation |
+| POST    | api/v1/organizations                      | Adds a new organisation       |
+| PUT     | api/v1/organizations/&lt;organization_id> | Updates a single organisation |
+| DELETE  | api/v1/organizations/&lt;organization_id> | Deletes an organisation       |
 
 ### USERS
 
@@ -80,7 +80,7 @@ This project addresses the following SDG targets:
 
 Open this collection in postman by clicking the button below:
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/6858a8faf4f7944f643a)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/6858a8faf4f7944f643a#?env%5Bherokuenv%5D=W3sia2V5IjoiYWRtaW5fdG9rZW4iLCJ2YWx1ZSI6ImV5SjBlWEFpT2lKS1YxUWlMQ0poYkdjaU9pSklVekkxTmlKOS5leUpwWVhRaU9qRTFOelUyTkRBME1ETXNJbTVpWmlJNk1UVTNOVFkwTURRd015d2lhblJwSWpvaVpqUXdOakF5TXpjdFlqWXlZaTAwWkRFNExXRTNZek10TnpRMllUSTVNMkl5Tnpoa0lpd2laWGh3SWpveE5UYzFOekl6TWpBekxDSnBaR1Z1ZEdsMGVTSTZleUoxYzJWeWJtRnRaU0k2SWtGa2JXbHVJaXdpY205c1pTSTZXeUpCWkcxcGJpSmRmU3dpWm5KbGMyZ2lPbVpoYkhObExDSjBlWEJsSWpvaVlXTmpaWE56SW4wLnBxS0VtX3JLX2pDSDJXTWp5UUZYNGNwNlFydGlvdUFnUnZZeGxrdkFGOGsiLCJlbmFibGVkIjp0cnVlfSx7ImtleSI6InRva2VuIiwidmFsdWUiOiIiLCJlbmFibGVkIjp0cnVlfV0=)
 
 If you're using Postman for testing the REST api, you can use the following setup:
 
