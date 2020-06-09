@@ -4,6 +4,7 @@ from flask_jwt_extended import get_jwt_identity
 
 from database_handler import DbConn
 from ..validators.comment_validator import ValidateComment
+from src.users.controller import ( conn, cur)
 
 class CommentController:
 
@@ -11,8 +12,6 @@ class CommentController:
 
     def __init__(self):
         """Initializes the user controller class."""
-        conn = DbConn()
-        self.cur = conn.create_connection()
         conn.create_courses_table()
         conn.create_comments_table()
 
@@ -22,12 +21,11 @@ class CommentController:
         sql = """INSERT INTO comments(commentBody, commentDateAdded, commentAuthor, courseID)
                         VALUES ('{}', '{}', '{}', '{}')"""
         sql_command = sql.format(data['comment_body'], datetime.now(), author, course_id)
-        self.cur.execute(sql_command)
+        cur.execute(sql_command)
 
     def add_new_comment(self, data, course_id):
         validate = ValidateComment(data)
         is_valid = validate.validate_comment_body()
-
         if is_valid:
             self.create_comment(data, course_id)
             return jsonify({"message": "comment added"}), 201
@@ -38,8 +36,8 @@ class CommentController:
         ''' selects all available comments from the database '''
         comments = []
         sql = """ SELECT * FROM comments WHERE CourseID='{}'"""
-        self.cur.execute(sql.format(course_id))
-        rows = self.cur.fetchall()
+        cur.execute(sql.format(course_id))
+        rows = cur.fetchall()
         for row in rows:
             comments.append({
                 "comment_id": row[0],

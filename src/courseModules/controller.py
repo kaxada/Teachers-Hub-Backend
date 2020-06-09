@@ -4,6 +4,7 @@ from database_handler import DbConn
 
 from ..courses.controller import CourseController
 from ..validators.module_validator import ModuleValidator
+from src.users.controller import ( conn, cur)
 
 course_controller = CourseController()
 
@@ -11,9 +12,6 @@ course_controller = CourseController()
 class ModuleController:
     def __init__(self):
         """Initializes the user controller class."""
-        conn = DbConn()
-        self.cur = conn.create_connection()
-        conn.create_organizations_table()
         conn.create_courses_table()
         conn.create_modules_table()
         conn.create_modules_content_table()
@@ -24,15 +22,15 @@ class ModuleController:
         """Adds a new model to the database."""
         sql = """INSERT into modules(module_title, module_description, module_date_added, CourseID) \
                  VALUES ('{}','{}','{}','{}')"""
-        self.cur.execute(sql.format(data['module_title'],
+        cur.execute(sql.format(data['module_title'],
                                     data['module_description'],
                                     datetime.now(),
                                     course_id))
     def check_duplicate_module(self, data, course_id):
         """checks if the module already exists on the course"""
         sql = """SELECT * from modules WHERE module_title='{}' and CourseID='{}'"""
-        self.cur.execute(sql.format(data['module_title'], course_id))
-        row = self.cur.fetchone()
+        cur.execute(sql.format(data['module_title'], course_id))
+        row = cur.fetchone()
         if row:
             return True
         else:
@@ -60,8 +58,8 @@ class ModuleController:
         """Fetches all modules on a course"""
         modules = []
         sql = """SELECT * FROM modules WHERE CourseID='{}'"""
-        self.cur.execute(sql.format(course_id))
-        rows = self.cur.fetchall()
+        cur.execute(sql.format(course_id))
+        rows = cur.fetchall()
         for row in rows:
             modules.append({
                 "module_id": row[0],
@@ -76,13 +74,13 @@ class ModuleController:
         """adds new module content to database"""
         sql = """INSERT INTO modules_content(module_content, module_content_title, module_content_date_added, ModuleID, CourseID) VALUES \
                 ('{}','{}','{}','{}', '{}')"""
-        self.cur.execute(sql.format(data['module_content'], data['module_content_title'], datetime.now(), module_id, course_id ))
+        cur.execute(sql.format(data['module_content'], data['module_content_title'], datetime.now(), module_id, course_id ))
 
     def query_existing_module_content(self, module_id, course_id, data):
         """Checks if module content exists"""
         sql = """SELECT * FROM modules_content WHERE ModuleID='{}' and module_content_title='{}' and CourseID='{}'"""
-        self.cur.execute(sql.format(module_id, data['module_content_title'], course_id))
-        row = self.cur.fetchone()
+        cur.execute(sql.format(module_id, data['module_content_title'], course_id))
+        row = cur.fetchone()
         if row:
             return True
         else:
@@ -91,8 +89,8 @@ class ModuleController:
     def check_module_id_exists(self, course_id, module_id):
         """Checks if the module ID exists in the database"""
         sql = """SELECT * from modules WHERE ModuleID='{}' and CourseID='{}'"""
-        self.cur.execute(sql.format(module_id, course_id))
-        row = self.cur.fetchone()
+        cur.execute(sql.format(module_id, course_id))
+        row = cur.fetchone()
         if row:
             return True
         else:
@@ -118,8 +116,8 @@ class ModuleController:
         """Fetches module content for a specific id."""
         modules_content = []
         sql = """SELECT * FROM modules_content WHERE ModuleID='{}' and CourseID='{}'"""
-        self.cur.execute(sql.format(module_id, course_id))
-        rows = self.cur.fetchall()
+        cur.execute(sql.format(module_id, course_id))
+        rows = cur.fetchall()
         for row in rows:
             modules_content.append({
                 "module_content_id": row[0],
