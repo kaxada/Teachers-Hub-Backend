@@ -16,7 +16,7 @@ class ValidateCourse:
             [boolean] -- [True if course name is valid else False]
         """
         try:
-            fields = ['course_category', 'course_title']
+            fields = ['course_category', 'course_title', 'course_instructor']
             for field in fields:
                 if not isinstance(self.data[field], str)  or \
                 self.data[field] == "":

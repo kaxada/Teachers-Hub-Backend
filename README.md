@@ -45,7 +45,7 @@ This project addresses the following SDG targets:
 | ------- | ------------------- | ------------------------ |
 | GET     | api/v1/auth/profile | Fetches a user's profile |
 
-### ARTICLES
+### BLOG
 
 | REQUEST | ROUTE                           | FUNCTIONALITY        |
 | ------- | ------------------------------- | -------------------- |
@@ -66,6 +66,23 @@ This project addresses the following SDG targets:
 7.  Navigate to `http://localhost:8000` in the browser to view the api.
 8.  Alternatively, open [postman](https://www.postman.com/) to test the url endpoints
 
+## Postman Setup for API Testing
+Open this collection in postman by clicking the button below:
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/6858a8faf4f7944f643a)
+
+If you're using Postman for testing the REST api, you can use the following setup:
+
+-   Make sure you have an environment set for your collection.
+-   POST to `http://localhost:5000/api/v1/auth/signup` and add your details to sign up
+-   POST to `http://localhost:5000/api/v1/auth/login/` to obtain token
+-   Paste this code in Tests which will save the token to the environment.
+
+````var jsonData = JSON.parse(responseBody);
+postman.setEnvironmentVariable("token", jsonData.token);```
+- In the Authorization section of your subsequent posts, set the Authorization type as Bearer Token and add {{token}}
+in the token section
+
 ## Heroku deployment
 
 View the deployed application here [Teachers Hub API](https://teachershub-backend.herokuapp.com/)
@@ -84,3 +101,5 @@ View the deployed application here [Teachers Hub API](https://teachershub-backen
 ## LICENSE
 
 MIT
+
+````
