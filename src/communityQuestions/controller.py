@@ -10,7 +10,8 @@ class QuestionsController:
         """Initializes the questions controller class."""
         conn.create_questions_table()
 
-    def create_question(self, data):
+    @staticmethod
+    def create_question(data):
         """Creates a question."""
         question_author = get_jwt_identity()['username']
         sql = """INSERT INTO questions(question_title, question_author, question_body)
@@ -20,13 +21,15 @@ class QuestionsController:
                                  data['question_body'])
         cur.execute(sql_command)
 
-    def delete_question(self, question_id):
+    @staticmethod
+    def delete_question(question_id):
         ''' Deletes a question '''
         sql = """ DELETE FROM questions WHERE question_id ='{}'"""
         sql_command = sql.format(question_id)
         cur.execute(sql_command)
 
-    def query_question(self, question_id):
+    @staticmethod
+    def query_question(question_id):
         ''' selects a question  from database '''
         sql = """ SELECT * FROM questions  WHERE question_id ='{}' """
         sql_command = sql.format(question_id)
@@ -34,7 +37,8 @@ class QuestionsController:
         row = cur.fetchone()
         return row
 
-    def update_question(self, data, question_id):
+    @staticmethod
+    def update_question(data, question_id):
         """Updates a question."""
         sql = """UPDATE questions SET question_title='{}',\
         question_body='{}' ,updated_at='{}' WHERE question_id='{}'"""
@@ -48,14 +52,16 @@ class QuestionsController:
         if row:
             return row
 
-    def query_all_questions(self):
+    @staticmethod
+    def query_all_questions():
         ''' selects all available questions from the database '''
         sql = """ SELECT * FROM questions  """
         cur.execute(sql)
         rows = cur.fetchall()
         return rows
 
-    def check_question_author(self, question_id):
+    @staticmethod
+    def check_question_author(question_id):
         """return checks author for authorization purposes"""
         username = get_jwt_identity()['username']
         sql = """SELECT question_author FROM questions WHERE question_id='{}'"""
