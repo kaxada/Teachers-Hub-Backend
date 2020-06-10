@@ -65,6 +65,16 @@ This project addresses the following SDG targets:
 | PUT     | api/v1/articles/&lt;article_id> | Update an article    |
 | GET     | api/v1/articles/&lt;article_id> | Fetch single article |
 
+### COMMUNITY QUESTIONS
+
+| REQUEST | ROUTE                                     | FUNCTIONALITY                 |
+| ------- | ----------------------------------------- | ----------------------------- |
+| GET     | api/v1/questions                          | Fetches all organisations     |
+| GET     | api/v1/questions/&lt;question_id>         | Fetches a single question     |
+| POST    | api/v1/questions                          | Adds a new question           |
+| PUT     | api/v1/questions/&lt;question_id>         | Updates a single question     |
+| DELETE  | api/v1/questions/&lt;question_id>         | Deletes a question            |
+
 ## Setup
 
 1.  You should have **Python 3.5+** and **git** installed.
