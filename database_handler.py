@@ -68,7 +68,7 @@ class DbConn:
         course_title VARCHAR(255) NOT NULL,
         course_description VARCHAR(500) NOT NULL,
         course_duration INTEGER NOT NULL,
-        total_enrolled INTEGER, 
+        total_enrolled INTEGER,
         date_added DATE NOT NULL,
         course_instructor VARCHAR(255) REFERENCES users(username) ON DELETE CASCADE); ''')
 
@@ -91,6 +91,16 @@ class DbConn:
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
         article_body TEXT NOT NULL ); ''')
+
+    def create_questions_table(self):
+        """A function to create the questions table."""
+        self.cur.execute('''CREATE TABLE IF NOT EXISTS questions
+        (question_id  SERIAL PRIMARY KEY  NOT NULL,
+        question_title VARCHAR(300) NOT NULL,
+        question_author VARCHAR(255) REFERENCES users(username) ON DELETE CASCADE,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+        question_body TEXT NOT NULL ); ''')
 
     def drop_tables(self, table_name):
         """ Drops the tables that exist in the database"""
