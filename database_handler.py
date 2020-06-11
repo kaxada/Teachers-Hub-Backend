@@ -1,6 +1,8 @@
-import psycopg2
 import os
+
+import psycopg2
 from decouple import config
+from werkzeug.security import generate_password_hash
 
 
 class DbConn:
@@ -26,6 +28,13 @@ class DbConn:
             username VARCHAR(100) NOT NULL UNIQUE,
             password VARCHAR(100) NOT NULL,
             role VARCHAR(100) NOT NULL); ''')
+
+    def create_default_admin(self):
+        """Creates a default administrator """
+        hashed_password = generate_password_hash('Administrator', 'sha256')
+        sql = """INSERT INTO users(email, username, password, role) VALUES
+              ('{}', '{}', '{}', '{}')"""
+        self.cur.execute(sql.format('admin@gmail.com', 'Admin', hashed_password, 'Admin'))
 
     def create_enrolled_table(self):
         """A function to create the course table."""

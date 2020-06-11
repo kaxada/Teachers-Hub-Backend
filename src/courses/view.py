@@ -85,8 +85,7 @@ def view_course(course_id):
                 'course_duration': course[4],
                 'total_enrolled': course[5],
                 'date_added': course[6],
-                'course_instructor': course[7],
-                'organization_name': course[8]
+                'course_instructor': course[7]
             },
             'message': 'course fetched!'
         }), 200
