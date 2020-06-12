@@ -16,6 +16,8 @@ class UserController:
     def __init__(self):
         """Initializes the user controller class."""
         conn.create_users_table()
+        if not self.check_admin_exists:
+            conn.create_default_admin()
 
     def create_user(self, data):
         """Creates a user.
@@ -126,6 +128,15 @@ class UserController:
         """Checks the logged in user is an admin"""
         role = get_jwt_identity()['role'][0]
         if role == 'Admin':
+            return True
+        else:
+            return False
+
+    def check_admin_exists(self):
+        sql = """SELECT * FROM users WHERE email='{}' and username='{}'"""
+        self.cur.execute(sql.format('admin@gmail.com', 'Admin'))
+        row = self.cur.fetchone()
+        if row:
             return True
         else:
             return False
