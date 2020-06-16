@@ -136,6 +136,7 @@ class UserController:
         sql = """SELECT * FROM users WHERE email='{}' and username='{}'"""
         self.cur.execute(sql.format('admin@gmail.com', 'Admin'))
         row = self.cur.fetchone()
+        print(row)
         if row:
             return True
         else:
