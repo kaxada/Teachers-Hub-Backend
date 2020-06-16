@@ -19,7 +19,7 @@ class CourseController:
         sql = """INSERT INTO courses(course_category, course_title, course_description, course_duration, date_added, course_instructor)
                         VALUES ('{}', '{}', '{}', '{}', '{}', '{}')"""
         sql_command = sql.format(data['course_category'], data['course_title'], data['course_description'],
-                                 data['course_duration'], datetime.now(), data['course_instructor'])
+                                int(data['course_duration']), datetime.now(), data['course_instructor'])
         cur.execute(sql_command)
 
     def delete_course(self, course_id):

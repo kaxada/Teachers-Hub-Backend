@@ -31,7 +31,7 @@ class DbConn:
 
     def create_default_admin(self):
         """Creates a default administrator """
-        hashed_password = generate_password_hash('Administrator', 'sha256')
+        hashed_password = generate_password_hash('Administrator1', 'sha256')
         sql = """INSERT INTO users(email, username, password, role) VALUES
               ('{}', '{}', '{}', '{}')"""
         self.cur.execute(sql.format('admin@gmail.com', 'Admin', hashed_password, 'Admin'))
