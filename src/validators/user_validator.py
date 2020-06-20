@@ -14,10 +14,10 @@ class ValidateUser:
             if len(self.data.keys()) != 2:
                 return "Enter only username and password"
             for field in login_fields:
+                if field not in self.data:
+                    return field + " is missing"
                 if not self.data[field]:
                     return field + " cannot be blank"
-                if field not in self.data.keys():
-                    return field + " is missing"
                 if not isinstance(self.data[field], str):
                     return "Enter string value at {}".format(field)
         except KeyError:
@@ -64,10 +64,13 @@ class ValidateUser:
 
     def validate_login(self):
         """validates login fields"""
-        if isinstance(self.validate_login_credentials(), str):
-            return self.validate_login_credentials()
+        if self.data:
+            if isinstance(self.validate_login_credentials(), str):
+                return self.validate_login_credentials()
+            else:
+                return "valid"
         else:
-            return "valid"
+            return "No data added"
 
     def validate_user_role(self):
         if self.data['role'] != 'Admin' and \

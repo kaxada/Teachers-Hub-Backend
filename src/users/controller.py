@@ -66,13 +66,13 @@ class UserController:
         sql = """SELECT username,password FROM users WHERE username='{}'"""
         validate = ValidateUser(data)
         is_valid = validate.validate_login()
-        role = self.get_role(data)
-        identity = {
-            'username': data['username'],
-            'role': role
-        }
-        expires = timedelta(hours=23)
         if is_valid == "valid":
+            role = self.get_role(data)
+            identity = {
+                'username': data['username'],
+                'role': role
+            }
+            expires = timedelta(hours=23)
             cur.execute(sql.format(data['username']))
             db_user = cur.fetchone()
             if not db_user:
