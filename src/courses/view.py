@@ -15,29 +15,29 @@ user_controller = UserController()
 def add_new_course():
     """Registers a Course."""
     data = request.get_json()
-
-    if data:
-        if not user_controller.check_admin_user():
-            return jsonify({"message": "only Admins allowed"}), 401
-        validate_course = ValidateCourse(data)
-        if validate_course.validate_course_category() and \
-            validate_course.validate_course_duration():
-            if course_controller.check_instructor_exists(data['course_instructor']):
-                if not course_controller.query_course_on_category(data):
-                    course_controller.create_course(data)
-                    return jsonify({"message": "course added successfully"}), 200
+    try:
+        if data:
+            if not user_controller.check_admin_user():
+                return jsonify({"message": "only Admins allowed"}), 401
+            validate_course = ValidateCourse(data)
+            if validate_course.validate_course_category() and \
+                validate_course.validate_course_duration():
+                if course_controller.check_instructor_exists(data['course_instructor']):
+                    if not course_controller.query_course_on_category(data):
+                        course_controller.create_course(data)
+                        return jsonify({"message": "course added successfully"}), 200
+                    else:
+                        return jsonify({"message": "course already exists in category"}), 400
                 else:
-                    return jsonify({"message": "course already exists in category"}), 400
-            else:
-                return jsonify({"message": "user does not exist or not registered as instructor"}), 400
-        elif not validate_course.validate_course_category():
-            return jsonify({"message": "enter valid course category"}), 400
-        elif not validate_course.validate_course_duration():
-            return jsonify({"message": "enter valid course duration"}), 400
-    else:
-        return jsonify({"message": "course details not provided"}), 400
-
-
+                    return jsonify({"message": "user does not exist or not registered as instructor"}), 400
+            elif not validate_course.validate_course_category():
+                return jsonify({"message": "enter valid course category"}), 400
+            elif not validate_course.validate_course_duration():
+                return jsonify({"message": "enter valid course duration"}), 400
+        else:
+            return jsonify({"message": "course details not provided"}), 400
+    except Exception as e: # work on python 3.x
+        return jsonify({"message":  repr(e) + " is missing"})
 @course.route('/api/v1/courses/<course_id>', methods=['DELETE'])
 @jwt_required
 def delete_course(course_id):
