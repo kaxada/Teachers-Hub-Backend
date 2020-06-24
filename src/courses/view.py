@@ -167,3 +167,14 @@ def enroll_for_course(course_id):
         return jsonify({
             'message': 'successfully enrolled'
         }), 200
+
+@course.route('/api/v1/courses/enrolled', methods=['GET'])
+@jwt_required
+def get_enrolled_course():
+    """
+    Function enables user to fetch courses enrolled for
+    """
+    enrolledCourses = course_controller.get_enrolled_courses()
+    return jsonify({
+        'enrolled_courses': enrolledCourses
+    }), 200
