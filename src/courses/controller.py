@@ -105,3 +105,25 @@ class CourseController:
             return True
         else:
             return False
+    @staticmethod
+    def get_enrolled_courses():
+        """Checks courses a user has enrolled for."""
+        enrolledCourses = []
+        username = get_jwt_identity()['username']
+        sql = """SELECT * FROM courses INNER JOIN enrollement ON enrollement.CourseID = courses.CourseID WHERE enrollement.username='{}'"""
+        cur.execute(sql.format(username))
+        rows = cur.fetchall()
+        for row in rows:
+            enrolledCourses.append({
+                "course_id": row[0],
+                "course_category": row[1],
+                "course_title": row[2],
+                "course_description": row[3],
+                "course_duration": row[4],
+                "total_enrolled": row[5],
+                "date_added": row[6],
+                "course_instructor": row[7]
+            })
+        return enrolledCourses
+
+  
