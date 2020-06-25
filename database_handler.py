@@ -86,7 +86,7 @@ class DbConn:
         self.cur.execute('''CREATE TABLE IF NOT EXISTS comments(
             commentID SERIAL PRIMARY KEY NOT NULL,
             commentBody VARCHAR(255) NOT NULL,
-            commentDateAdded DATE NOT NULL,
+            commentDateAdded TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
             commentAuthor VARCHAR(255) REFERENCES users(username) \
             ON DELETE CASCADE,
             CourseID INTEGER REFERENCES courses(CourseID) ON DELETE CASCADE); ''')
