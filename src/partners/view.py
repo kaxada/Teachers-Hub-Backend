@@ -13,22 +13,17 @@ user_controller = UserController()
 @jwt_required
 def add_new_organization():
     """Registers an Organization."""
-    data = request.get_json()
-
-    if data:
-        if not user_controller.check_admin_user():
-            return jsonify({"message": "only Admins allowed"}), 401
-        validate_organization = ValidateOrganization(data)
-        if validate_organization.validate_organization_name():
-            if not organization_controller.check_duplicate_organization(data):
-                organization_controller.create_organization(data)
-                return jsonify({"message": "organization added successfully"}), 200
-            else:
-                return jsonify({"message": "organization already exists"}), 400
-        else:
-            return jsonify({"message": "enter valid organization name"}), 400
-    else:
+    if not (data := request.get_json()):
         return jsonify({"message": "organization details not provided"}), 400
+    if not user_controller.check_admin_user():
+        return jsonify({"message": "only Admins allowed"}), 401
+    validate_organization = ValidateOrganization(data)
+    if not validate_organization.validate_organization_name():
+        return jsonify({"message": "enter valid organization name"}), 400
+    if organization_controller.check_duplicate_organization(data):
+        return jsonify({"message": "organization already exists"}), 400
+    organization_controller.create_organization(data)
+    return jsonify({"message": "organization added successfully"}), 200
 
 
 @organization.route('/api/v1/organizations/<organization_id>', methods=['DELETE'])
@@ -88,29 +83,26 @@ def update_organization(organization_id):
     """
     Function enables user to modify an Organization from the database.
     """
-    data = request.get_json()
-
-    if data:
-        if not user_controller.check_admin_user():
-            return jsonify({"message": "only Admins allowed"}), 401
-        validate_organization = ValidateOrganization(data)
-        try:
-            organization_id = int(organization_id)
-            if not organization_controller.query_organization(organization_id):
-                return jsonify({
-                    'message': 'Organization does not exist in database'
-                }), 400
-            elif validate_organization.validate_organization_name():
-                    organization_controller.update_organization(data, organization_id)
-                    return jsonify({"message": "organization updated successfully"}), 200
-            else:
-                return jsonify({"message": "enter valid organization name"}), 400
-        except ValueError:
-            return jsonify({"message": "organization id should be an integer"}), 400
-        except Exception:
-            return jsonify({"message": "organization exists already"}), 400
-    else:
+    if not (data := request.get_json()):
         return jsonify({"message": "organization details not provided"}), 400
+    if not user_controller.check_admin_user():
+        return jsonify({"message": "only Admins allowed"}), 401
+    validate_organization = ValidateOrganization(data)
+    try:
+        organization_id = int(organization_id)
+        if not organization_controller.query_organization(organization_id):
+            return jsonify({
+                'message': 'Organization does not exist in database'
+            }), 400
+        elif validate_organization.validate_organization_name():
+                organization_controller.update_organization(data, organization_id)
+                return jsonify({"message": "organization updated successfully"}), 200
+        else:
+            return jsonify({"message": "enter valid organization name"}), 400
+    except ValueError:
+        return jsonify({"message": "organization id should be an integer"}), 400
+    except Exception:
+        return jsonify({"message": "organization exists already"}), 400
 
 
 @organization.route('/api/v1/organizations', methods=['GET'])

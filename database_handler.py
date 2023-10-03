@@ -115,7 +115,7 @@ class DbConn:
         """ Drops the tables that exist in the database"""
         sql = """ DROP TABLE {} CASCADE; """
         self.cur.execute(sql.format(table_name))
-        print("Table '{}' successfully dropped".format(table_name))
+        print(f"Table '{table_name}' successfully dropped")
 
     def close_DB(self):
         self.conn.commit()

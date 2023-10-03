@@ -42,44 +42,38 @@ def view_question(question_id):
 @jwt_required
 def update_question(question_id):
     """posts a new question"""
-    data = request.get_json()
-
-    if data:
-        if not question_controller.check_question_author(question_id) and not user_controller.check_admin_user():
-            return jsonify({"message": "only Admins and authors allowed"}), 401
-        validate_question = ValidateQuestion(data)
-        if validate_question.validate_question_title() and\
-            validate_question.validate_question_body():
-            question_controller.update_question(data, question_id)
-            return jsonify({"message": "question updated successfully"}), 200
-        elif not validate_question.validate_question_title():
-            return jsonify({"message": "enter valid question title"}), 400
-        elif not validate_question.validate_question_body():
-            return jsonify({"message": "enter valid question body "}), 400
-    else:
+    if not (data := request.get_json()):
         return jsonify({"message": "question details not provided"}), 400
+    if not question_controller.check_question_author(question_id) and not user_controller.check_admin_user():
+        return jsonify({"message": "only Admins and authors allowed"}), 401
+    validate_question = ValidateQuestion(data)
+    if validate_question.validate_question_title() and\
+        validate_question.validate_question_body():
+        question_controller.update_question(data, question_id)
+        return jsonify({"message": "question updated successfully"}), 200
+    elif not validate_question.validate_question_title():
+        return jsonify({"message": "enter valid question title"}), 400
+    elif not validate_question.validate_question_body():
+        return jsonify({"message": "enter valid question body "}), 400
 
 @question.route('/api/v1/questions', methods=['POST'])
 @jwt_required
 def add_new_question():
     """posts a new question"""
-    data = request.get_json()
-
-    if data:
-        validate_question = ValidateQuestion(data)
-        try:
-            if validate_question.validate_question_title() and\
-                validate_question.validate_question_body():
-                question_controller.create_question(data)
-                return jsonify({"message": "question added successfully"}), 200
-            elif not validate_question.validate_question_title():
-                return jsonify({"message": "enter valid question title"}), 400
-            elif not validate_question.validate_question_body():
-                return jsonify({"message": "enter valid question body "}), 400
-        except psycopg2.Error:
-            return jsonify({"message": "question title already exists"}), 400
-    else:
+    if not (data := request.get_json()):
         return jsonify({"message": "question details not provided"}), 400
+    validate_question = ValidateQuestion(data)
+    try:
+        if validate_question.validate_question_title() and\
+            validate_question.validate_question_body():
+            question_controller.create_question(data)
+            return jsonify({"message": "question added successfully"}), 200
+        elif not validate_question.validate_question_title():
+            return jsonify({"message": "enter valid question title"}), 400
+        elif not validate_question.validate_question_body():
+            return jsonify({"message": "enter valid question body "}), 400
+    except psycopg2.Error:
+        return jsonify({"message": "question title already exists"}), 400
 
 
 @question.route('/api/v1/questions/<question_id>', methods=['DELETE'])

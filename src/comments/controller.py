@@ -25,8 +25,7 @@ class CommentController:
 
     def add_new_comment(self, data, course_id):
         validate = ValidateComment(data)
-        is_valid = validate.validate_comment_body()
-        if is_valid:
+        if is_valid := validate.validate_comment_body():
             self.create_comment(data, course_id)
             return jsonify({"message": "comment added"}), 201
         else:
@@ -34,16 +33,16 @@ class CommentController:
 
     def fetch_comments(self, course_id):
         ''' selects all available comments from the database '''
-        comments = []
         sql = """ SELECT * FROM comments WHERE CourseID='{}'"""
         cur.execute(sql.format(course_id))
         rows = cur.fetchall()
-        for row in rows:
-            comments.append({
+        return [
+            {
                 "comment_id": row[0],
                 "comment_body": row[1],
                 "comment_date_added": row[2],
                 "comment_author": row[3],
-                "course_id": row[4]
-            })
-        return comments
+                "course_id": row[4],
+            }
+            for row in rows
+        ]

@@ -25,8 +25,7 @@ cloudinary.config(
 @jwt_required
 def add_new_module(course_id):
     """Registers a module to a specific course."""
-    data = request.get_json()
-    if data:
+    if data := request.get_json():
         if not user_controller.check_admin_user():
             return jsonify({"message": "only Admins allowed"}), 401
         return module_controller.add_module_controller(data, course_id)
@@ -35,8 +34,7 @@ def add_new_module(course_id):
 
 @module.route('/api/v1/upload', methods=['POST'])
 def upload_file():
-    file = request.files['file']
-    if file:
+    if file := request.files['file']:
         result = upload(file, folder="/videos")
         return result["secure_url"]
 
@@ -53,8 +51,7 @@ def get_modules(course_id):
 @module.route('/api/v1/courses/<course_id>/modules/<module_id>', methods=['POST'])
 @jwt_required
 def add_module_content(course_id, module_id):
-    data = request.get_json()
-    if data:
+    if data := request.get_json():
         if not user_controller.check_admin_user():
             return jsonify({"message": "only Admins allowed"}), 401
         return module_controller.register_module_content(data, course_id, module_id)
@@ -65,9 +62,14 @@ def add_module_content(course_id, module_id):
 def fetch_module_content(course_id, module_id):
     """Fetches module content for a specific module"""
     if not module_controller.check_module_id_exists(course_id, module_id):
-        return jsonify({
-            'message': 'module {} does not exist on course {}'.format(module_id, course_id)
-        }), 400
+        return (
+            jsonify(
+                {
+                    'message': f'module {module_id} does not exist on course {course_id}'
+                }
+            ),
+            400,
+        )
     module_content = module_controller.fetch_module_content(course_id, module_id)
     return jsonify({
         'module_content': module_content,

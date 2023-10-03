@@ -10,8 +10,7 @@ user_controller = UserController()
 @user.route('/api/v1/auth/signup', methods=['POST'])
 def register_user():
     """Registers a User."""
-    data = request.get_json()
-    if data:
+    if data := request.get_json():
         return user_controller.register_user_controller(data)
     else:
         return jsonify({"message": "no data added"}), 400

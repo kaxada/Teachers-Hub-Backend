@@ -31,8 +31,7 @@ class ArticleController:
         sql = """ SELECT * FROM articles  WHERE article_id ='{}' """
         sql_command = sql.format(article_id)
         cur.execute(sql_command)
-        row = cur.fetchone()
-        return row
+        return cur.fetchone()
 
     def update_article(self, data, article_id):
         """Updates a article."""
@@ -44,16 +43,14 @@ class ArticleController:
         sql = """ SELECT * FROM articles  WHERE article_id ='{}' """
         sql_command = sql.format(article_id)
         cur.execute(sql_command)
-        row = cur.fetchone()
-        if row:
+        if row := cur.fetchone():
             return row
 
     def query_all_articles(self):
         ''' selects all available articles from the database '''
         sql = """ SELECT * FROM articles  """
         cur.execute(sql)
-        rows = cur.fetchall()
-        return rows
+        return cur.fetchall()
 
     def check_author(self, article_id):
         """return checks author for authorization purposes"""
@@ -61,7 +58,4 @@ class ArticleController:
         sql = """SELECT author_name FROM articles WHERE article_id='{}'"""
         cur.execute(sql.format(article_id))
         row = cur.fetchone()
-        if row and row[0] == username:
-            return True
-        else:
-            return False
+        return bool(row and row[0] == username)

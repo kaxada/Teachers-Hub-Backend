@@ -15,8 +15,8 @@ class ValidateComment:
         Returns:
             [boolean] -- [True if course name is valid else False]
         """
-        if not isinstance(self.data['comment_body'], str)  or self.data['comment_body'] == "":
-            return False
-        else:
-            return True
+        return (
+            isinstance(self.data['comment_body'], str)
+            and self.data['comment_body'] != ""
+        )
 

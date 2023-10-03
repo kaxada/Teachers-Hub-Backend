@@ -12,9 +12,7 @@ course_controller = CourseController()
 @jwt_required
 def add_new_comment(course_id):
     """adds comment to course."""
-    data = request.get_json()
-
-    if data:
+    if data := request.get_json():
         if not course_controller.query_course(course_id):
             return jsonify({
                     'message': 'Course does not exist in database'
@@ -33,6 +31,5 @@ def fetch_comment(course_id):
         return jsonify({
                 'message': 'Course does not exist in database'
             }), 400
-    else:
-        comments = comment_controller.fetch_comments(course_id)
-        return jsonify({"comments": comments}), 200
+    comments = comment_controller.fetch_comments(course_id)
+    return jsonify({"comments": comments}), 200

@@ -33,18 +33,13 @@ class CourseController:
         sql = """ SELECT * FROM courses  WHERE CourseID ='{}' """
         sql_command = sql.format(course_id)
         cur.execute(sql_command)
-        row = cur.fetchone()
-        return row
+        return cur.fetchone()
 
     def query_course_on_category(self, data):
         """Checks course already exists on category"""
         sql = """SELECT * FROM courses WHERE course_title='{}' AND course_category='{}'"""
         cur.execute(sql.format(data["course_title"], data['course_category']))
-        row = cur.fetchone()
-        if row:
-            return True
-        else:
-            return False
+        return bool(row := cur.fetchone())
 
     def update_course(self, data, course_id):
         """Updates a course."""
@@ -56,18 +51,16 @@ class CourseController:
         sql = """ SELECT * FROM courses  WHERE courseID ='{}' """
         sql_command = sql.format(course_id)
         cur.execute(sql_command)
-        row = cur.fetchone()
-        if row:
+        if row := cur.fetchone():
             return row
 
     def query_all_courses(self):
         ''' selects all available courses from the database '''
-        courses = []
         sql = """ SELECT * FROM courses  """
         cur.execute(sql)
         rows = cur.fetchall()
-        for row in rows:
-            courses.append({
+        return [
+            {
                 "course_id": row[0],
                 "course_category": row[1],
                 "course_title": row[2],
@@ -75,20 +68,17 @@ class CourseController:
                 "course_duration": row[4],
                 "total_enrolled": row[5],
                 "date_added": row[6],
-                "course_instructor": row[7]
-                })
-        return courses
+                "course_instructor": row[7],
+            }
+            for row in rows
+        ]
 
     def check_if_already_enrolled(self, course_id):
         """Checks if a user has already enrolled for the course"""
         username = get_jwt_identity()['username']
         sql = """SELECT * FROM enrollement WHERE username= '{}' and CourseID='{}'"""
         cur.execute(sql.format(username, course_id))
-        row = cur.fetchone()
-        if row:
-            return True
-        else:
-            return False
+        return bool(row := cur.fetchone())
 
     def enroll_course(self, course_id):
         """Enroll for a course"""
@@ -100,21 +90,16 @@ class CourseController:
         """Checks instructor exists in courses"""
         sql = """SELECT * FROM users WHERE username='{}' and role='Instructor'"""
         cur.execute(sql.format(course_instructor))
-        row = cur.fetchone()
-        if row:
-            return True
-        else:
-            return False
+        return bool(row := cur.fetchone())
     @staticmethod
     def get_enrolled_courses():
         """Checks courses a user has enrolled for."""
-        enrolledCourses = []
         username = get_jwt_identity()['username']
         sql = """SELECT * FROM courses INNER JOIN enrollement ON enrollement.CourseID = courses.CourseID WHERE enrollement.username='{}'"""
         cur.execute(sql.format(username))
         rows = cur.fetchall()
-        for row in rows:
-            enrolledCourses.append({
+        return [
+            {
                 "course_id": row[0],
                 "course_category": row[1],
                 "course_title": row[2],
@@ -122,8 +107,9 @@ class CourseController:
                 "course_duration": row[4],
                 "total_enrolled": row[5],
                 "date_added": row[6],
-                "course_instructor": row[7]
-            })
-        return enrolledCourses
+                "course_instructor": row[7],
+            }
+            for row in rows
+        ]
 
   
