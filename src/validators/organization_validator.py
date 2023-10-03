@@ -16,10 +16,8 @@ class ValidateOrganization:
             [True] -- [returns true for valid organization name else false]
         """
         try:
-            if self.data['organization_name'] == "" or \
-               not isinstance(self.data['organization_name'], str):
-                return False
-            else:
-                return True
+            return self.data['organization_name'] != "" and isinstance(
+                self.data['organization_name'], str
+            )
         except KeyError:
             return False

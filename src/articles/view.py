@@ -50,44 +50,38 @@ def view_article(article_id):
 @jwt_required
 def update_article(article_id):
     """posts a new article"""
-    data = request.get_json()
-
-    if data:
-        if not article_controller.check_author(article_id) and not user_controller.check_admin_user():
-            return jsonify({"message": "only Admins and authors allowed"}), 401
-        validate_article = ValidateArticle(data)
-        if validate_article.validate_article_title() and\
-            validate_article.validate_article_body():
-            article_controller.update_article(data, article_id)
-            return jsonify({"message": "article updated successfully"}), 200
-        elif not validate_article.validate_article_title():
-            return jsonify({"message": "enter valid article title"}), 400
-        elif not validate_article.validate_article_body():
-            return jsonify({"message": "enter valid article body "}), 400
-    else:
+    if not (data := request.get_json()):
         return jsonify({"message": "article details not provided"}), 400
+    if not article_controller.check_author(article_id) and not user_controller.check_admin_user():
+        return jsonify({"message": "only Admins and authors allowed"}), 401
+    validate_article = ValidateArticle(data)
+    if validate_article.validate_article_title() and\
+        validate_article.validate_article_body():
+        article_controller.update_article(data, article_id)
+        return jsonify({"message": "article updated successfully"}), 200
+    elif not validate_article.validate_article_title():
+        return jsonify({"message": "enter valid article title"}), 400
+    elif not validate_article.validate_article_body():
+        return jsonify({"message": "enter valid article body "}), 400
 
 @article.route('/api/v1/articles', methods=['POST'])
 @jwt_required
 def add_new_article():
     """posts a new article"""
-    data = request.get_json()
-
-    if data:
-        validate_article = ValidateArticle(data)
-        try:
-            if validate_article.validate_article_title() and\
-                validate_article.validate_article_body():
-                article_controller.create_article(data)
-                return jsonify({"message": "article added successfully"}), 200
-            elif not validate_article.validate_article_title():
-                return jsonify({"message": "enter valid article title"}), 400
-            elif not validate_article.validate_article_body():
-                return jsonify({"message": "enter valid article body "}), 400
-        except psycopg2.Error:
-            return jsonify({"message": "article title already exists"}), 400
-    else:
+    if not (data := request.get_json()):
         return jsonify({"message": "article details not provided"}), 400
+    validate_article = ValidateArticle(data)
+    try:
+        if validate_article.validate_article_title() and\
+            validate_article.validate_article_body():
+            article_controller.create_article(data)
+            return jsonify({"message": "article added successfully"}), 200
+        elif not validate_article.validate_article_title():
+            return jsonify({"message": "enter valid article title"}), 400
+        elif not validate_article.validate_article_body():
+            return jsonify({"message": "enter valid article body "}), 400
+    except psycopg2.Error:
+        return jsonify({"message": "article title already exists"}), 400
 
 
 @article.route('/api/v1/articles/<article_id>', methods=['DELETE'])

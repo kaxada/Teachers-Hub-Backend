@@ -16,11 +16,10 @@ class ValidateQuestion:
             [boolean] -- [True if article title is valid else False]
         """
         try:
-            if not isinstance(self.data['question_title'], str)  or \
-            self.data['question_title'] == "":
-                return False
-            else:
-                return True
+            return (
+                isinstance(self.data['question_title'], str)
+                and self.data['question_title'] != ""
+            )
         except KeyError:
             return False
 
@@ -32,10 +31,9 @@ class ValidateQuestion:
             [boolean] -- [True if article_body is valid else False]
         """
         try:
-            if not isinstance(self.data['question_body'], str)  or \
-            self.data['question_body'] == "":
-                return False
-            else:
-                return True
+            return (
+                isinstance(self.data['question_body'], str)
+                and self.data['question_body'] != ""
+            )
         except KeyError:
             return False

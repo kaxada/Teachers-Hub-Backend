@@ -30,11 +30,7 @@ class ModuleController:
         """checks if the module already exists on the course"""
         sql = """SELECT * from modules WHERE module_title='{}' and CourseID='{}'"""
         cur.execute(sql.format(data['module_title'], course_id))
-        row = cur.fetchone()
-        if row:
-            return True
-        else:
-            return False
+        return bool(row := cur.fetchone())
 
 
     def add_module_controller(self, data, course_id):
@@ -56,19 +52,19 @@ class ModuleController:
 
     def fetch_course_modules(self, course_id):
         """Fetches all modules on a course"""
-        modules = []
         sql = """SELECT * FROM modules WHERE CourseID='{}'"""
         cur.execute(sql.format(course_id))
         rows = cur.fetchall()
-        for row in rows:
-            modules.append({
+        return [
+            {
                 "module_id": row[0],
                 "module_title": row[1],
                 "module_description": row[2],
                 "module_date_added": row[3],
-                "course_id": row[4]
-            })
-        return modules
+                "course_id": row[4],
+            }
+            for row in rows
+        ]
 
     def add_module_content(self, data, module_id, course_id):
         """adds new module content to database"""
@@ -80,53 +76,64 @@ class ModuleController:
         """Checks if module content exists"""
         sql = """SELECT * FROM modules_content WHERE ModuleID='{}' and module_content_title='{}' and CourseID='{}'"""
         cur.execute(sql.format(module_id, data['module_content_title'], course_id))
-        row = cur.fetchone()
-        if row:
-            return True
-        else:
-            return False
+        return bool(row := cur.fetchone())
 
     def check_module_id_exists(self, course_id, module_id):
         """Checks if the module ID exists in the database"""
         sql = """SELECT * from modules WHERE ModuleID='{}' and CourseID='{}'"""
         cur.execute(sql.format(module_id, course_id))
-        row = cur.fetchone()
-        if row:
-            return True
-        else:
-            return False
+        return bool(row := cur.fetchone())
 
     def register_module_content(self, data, course_id, module_id):
         """register module content"""
         validate = ModuleValidator(data)
         module_valid = validate.is_module_valid()
-        if self.check_module_id_exists(course_id, module_id):
-            if module_valid == "valid":
-                if not self.query_existing_module_content(module_id, course_id, data):
-                    self.add_module_content(data, module_id, course_id)
-                    return jsonify({"message": "module content added to module {} of course {}".format(module_id, course_id)}), 200
-                else:
-                    return jsonify({"message": "module content already exists on module {} of course {}".format(module_id, course_id)}), 400
-            else:
-                return jsonify({"message": module_valid}), 400
+        if not self.check_module_id_exists(course_id, module_id):
+            return (
+                jsonify(
+                    {
+                        "message": f"module id {module_id} doesnot exist in course {course_id}"
+                    }
+                ),
+                404,
+            )
+        if module_valid != "valid":
+            return jsonify({"message": module_valid}), 400
+        if not self.query_existing_module_content(module_id, course_id, data):
+            self.add_module_content(data, module_id, course_id)
+            return (
+                jsonify(
+                    {
+                        "message": f"module content added to module {module_id} of course {course_id}"
+                    }
+                ),
+                200,
+            )
         else:
-            return jsonify({"message": "module id {} doesnot exist in course {}".format(module_id, course_id)}), 404
+            return (
+                jsonify(
+                    {
+                        "message": f"module content already exists on module {module_id} of course {course_id}"
+                    }
+                ),
+                400,
+            )
 
     def fetch_module_content(self, course_id, module_id):
         """Fetches module content for a specific id."""
-        modules_content = []
         sql = """SELECT * FROM modules_content WHERE ModuleID='{}' and CourseID='{}'"""
         cur.execute(sql.format(module_id, course_id))
         rows = cur.fetchall()
-        for row in rows:
-            modules_content.append({
+        return [
+            {
                 "module_content_id": row[0],
                 "module_content": row[1],
                 "module_content_title": row[2],
                 "module_content_date_added": row[3],
-                "module_id": row[4]
-                })
-        return modules_content
+                "module_id": row[4],
+            }
+            for row in rows
+        ]
 
 
 

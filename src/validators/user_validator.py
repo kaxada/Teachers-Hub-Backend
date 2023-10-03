@@ -15,11 +15,11 @@ class ValidateUser:
                 return "Enter only username and password"
             for field in login_fields:
                 if field not in self.data:
-                    return field + " is missing"
+                    return f"{field} is missing"
                 if not self.data[field]:
-                    return field + " cannot be blank"
+                    return f"{field} cannot be blank"
                 if not isinstance(self.data[field], str):
-                    return "Enter string value at {}".format(field)
+                    return f"Enter string value at {field}"
         except KeyError:
             return "Invalid key added"
 
@@ -31,11 +31,11 @@ class ValidateUser:
         try:
             for field in fields:
                 if field not in self.data.keys():
-                    return '{} field is missing'.format(field)
+                    return f'{field} field is missing'
                 if self.data[field] == "":
-                    return field + " cannot be blank"
+                    return f"{field} cannot be blank"
                 if not isinstance(self.data[field], str):
-                    return "Enter string value at {}".format(field)
+                    return f"Enter string value at {field}"
         except KeyError:
             return "Invalid Key added"
 
@@ -51,7 +51,7 @@ class ValidateUser:
 
         if not all((lower_case, upper_case, numbers)):
             return "password should be lower, upper and values"
-        if not len(self.data['password']) >= 5:
+        if len(self.data['password']) < 5:
             return "password should be greater than or equal to 5 characters"
 
     def validate_email(self):
@@ -64,18 +64,15 @@ class ValidateUser:
 
     def validate_login(self):
         """validates login fields"""
-        if self.data:
-            if isinstance(self.validate_login_credentials(), str):
-                return self.validate_login_credentials()
-            else:
-                return "valid"
-        else:
+        if not self.data:
             return "No data added"
+        if isinstance(self.validate_login_credentials(), str):
+            return self.validate_login_credentials()
+        else:
+            return "valid"
 
     def validate_user_role(self):
-        if self.data['role'] != 'Admin' and \
-            self.data['role'] != 'Teacher' and \
-            self.data['role'] != 'Instructor':
+        if self.data['role'] not in ['Admin', 'Teacher', 'Instructor']:
             return "Role must be either Admin, Teacher, Instructor"
 
     def is_valid(self):

@@ -8,11 +8,11 @@ class ModuleValidator:
         try:
             for field in module_fields:
                 if not self.data[field]:
-                    return field + " cannot be blank"
+                    return f"{field} cannot be blank"
                 if field not in self.data.keys():
-                    return field + " is missing"
+                    return f"{field} is missing"
                 if not isinstance(self.data[field], str):
-                    return "Enter string value at {}".format(field)
+                    return f"Enter string value at {field}"
         except KeyError:
             return "Invalid key added"
 
@@ -21,11 +21,11 @@ class ModuleValidator:
         module_content_fields=["module_content", "module_content_title"]
         for field in module_content_fields:
             if not self.data[field]:
-                return field + "cannot be blank"
+                return f"{field}cannot be blank"
             if field not in self.data.keys():
-                return field + " is missing"
+                return f"{field} is missing"
             if not isinstance(self.data[field], str):
-                return "Enter string value at {}".format(field)
+                return f"Enter string value at {field}"
 
 
     def is_valid(self):

@@ -34,8 +34,7 @@ class QuestionsController:
         sql = """ SELECT * FROM questions  WHERE question_id ='{}' """
         sql_command = sql.format(question_id)
         cur.execute(sql_command)
-        row = cur.fetchone()
-        return row
+        return cur.fetchone()
 
     @staticmethod
     def update_question(data, question_id):
@@ -48,8 +47,7 @@ class QuestionsController:
         sql = """ SELECT * FROM questions  WHERE question_id ='{}' """
         sql_command = sql.format(question_id)
         cur.execute(sql_command)
-        row = cur.fetchone()
-        if row:
+        if row := cur.fetchone():
             return row
 
     @staticmethod
@@ -57,8 +55,7 @@ class QuestionsController:
         ''' selects all available questions from the database '''
         sql = """ SELECT * FROM questions  """
         cur.execute(sql)
-        rows = cur.fetchall()
-        return rows
+        return cur.fetchall()
 
     @staticmethod
     def check_question_author(question_id):
@@ -67,7 +64,4 @@ class QuestionsController:
         sql = """SELECT question_author FROM questions WHERE question_id='{}'"""
         cur.execute(sql.format(question_id))
         row = cur.fetchone()
-        if row and row[0] == username:
-            return True
-        else:
-            return False
+        return bool(row and row[0] == username)

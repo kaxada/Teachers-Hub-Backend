@@ -53,8 +53,7 @@ class UserController:
     def get_role(self, data):
         sql = """SELECT role FROM users WHERE username = '{}'"""
         cur.execute(sql.format(data['username']))
-        role = cur.fetchone()
-        if role:
+        if role := cur.fetchone():
             return role
 
     def login_user(self, data):
@@ -63,30 +62,28 @@ class UserController:
         Arguments:
           data {[username, password ]} -- [Login credentials needed]
         """
-        sql = """SELECT username,password FROM users WHERE username='{}'"""
         validate = ValidateUser(data)
         is_valid = validate.validate_login()
-        if is_valid == "valid":
-            role = self.get_role(data)
-            identity = {
-                'username': data['username'],
-                'role': role
-            }
-            expires = timedelta(hours=23)
-            cur.execute(sql.format(data['username']))
-            db_user = cur.fetchone()
-            if not db_user:
-                return jsonify({'message': 'No user found'}), 404
-            if not check_password_hash(db_user[1], data['password']):
-                return jsonify({'message': 'Invalid password'}), 400
-            else:
-                access_token = create_access_token(
-                    identity=identity, expires_delta=expires)
-                return jsonify({'message': 'successfully logged in',
-                                'token': access_token
-                                }), 200
-        else:
+        if is_valid != "valid":
             return jsonify({"message": is_valid}), 400
+        role = self.get_role(data)
+        identity = {
+            'username': data['username'],
+            'role': role
+        }
+        expires = timedelta(hours=23)
+        sql = """SELECT username,password FROM users WHERE username='{}'"""
+        cur.execute(sql.format(data['username']))
+        db_user = cur.fetchone()
+        if not db_user:
+            return jsonify({'message': 'No user found'}), 404
+        if not check_password_hash(db_user[1], data['password']):
+            return jsonify({'message': 'Invalid password'}), 400
+        access_token = create_access_token(
+            identity=identity, expires_delta=expires)
+        return jsonify({'message': 'successfully logged in',
+                        'token': access_token
+                        }), 200
 
     def check_duplicate_email(self, the_email):
         '''
@@ -96,11 +93,7 @@ class UserController:
 
         sql_email = """SELECT email FROM users WHERE email='{}'"""
         cur.execute(sql_email.format(the_email))
-        db_email = cur.fetchone()
-        if db_email:
-            return True
-        else:
-            return False
+        return bool(db_email := cur.fetchone())
 
     def check_duplicate_username(self, the_username):
         '''
@@ -110,34 +103,23 @@ class UserController:
 
         sql_username = """SELECT username FROM users WHERE username='{}'"""
         cur.execute(sql_username.format(the_username))
-        db_username = cur.fetchone()
-        if db_username:
-            return True
-        else:
-            return False
+        return bool(db_username := cur.fetchone())
 
     def get_user_profile_details(self, data):
         sql = """SELECT * FROM users WHERE username = '{}'"""
         cur.execute(sql.format(data['username']))
-        profile_details = cur.fetchone()
-        if profile_details:
+        if profile_details := cur.fetchone():
             return profile_details
 
     #pylint: disable=no-self-use
     def check_admin_user(self):
         """Checks the logged in user is an admin"""
         role = get_jwt_identity()['role'][0]
-        if role == 'Admin':
-            return True
-        else:
-            return False
+        return role == 'Admin'
 
     def check_admin_exists(self):
         sql = """SELECT * FROM users WHERE email='{}' and username='{}'"""
         self.cur.execute(sql.format('admin@gmail.com', 'Admin'))
         row = self.cur.fetchone()
         print(row)
-        if row:
-            return True
-        else:
-            return False
+        return bool(row)

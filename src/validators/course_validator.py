@@ -18,11 +18,7 @@ class ValidateCourse:
         try:
             fields = ['course_category', 'course_title', 'course_instructor','course_duration']
             for field in fields:
-                if not isinstance(self.data[field], str)  or \
-                self.data[field] == "":
-                    return False
-                else:
-                    return True
+                return isinstance(self.data[field], str) and self.data[field] != ""
         except KeyError:
             return False
 
@@ -33,11 +29,6 @@ class ValidateCourse:
             [True] -- [returns true for valid course duration else false]
         """
         try:
-            if not int(self.data['course_duration']):
-                return False
-            else:
-                return True
-        except KeyError:
-            return False
-        except ValueError:
+            return bool(int(self.data['course_duration']))
+        except (KeyError, ValueError):
             return False
